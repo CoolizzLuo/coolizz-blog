@@ -1,6 +1,10 @@
-import styled from 'styled-components';
-import Router from './Router';
+import { useState, useEffect } from 'react'
+import styled from 'styled-components'
+import Router from './Router'
 import Header from './Header'
+import { AuthContext } from '../context'
+import { getMe } from '../WebAPI'
+import { getAuthToken } from '../utils'
 
 
 const Root = styled.div`
@@ -8,11 +12,25 @@ const Root = styled.div`
 `
 
 export default function App() {
+  const [user, setUser] = useState(null)
+  const token = getAuthToken()
+
+  useEffect(() => {
+    getMe().then((res) => {
+      if (res.ok !== 1) return
+      setUser(res.data)
+    })
+  }, [token])
+
+
+
   return (
-    <Root>
-      <Router>
-        <Header/>
-      </Router>
-    </Root>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <Root>
+        <Router>
+          <Header/>
+        </Router>
+      </Root>
+    </AuthContext.Provider>
   )
 }

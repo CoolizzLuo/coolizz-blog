@@ -1,5 +1,8 @@
-import styled from "styled-components"
+import { useContext } from 'react'
+import styled from 'styled-components'
 import { Link, useLocation } from 'react-router-dom'
+import { AuthContext } from '../context'
+import { setAuthToken } from '../utils'
 
 
 const HeaderContainer = styled.div`
@@ -53,19 +56,28 @@ const LeftContainer = styled.div`
   }
 `
 
-export default function App() {
+export default function Header({ history }) {
   const location = useLocation()
+  const { pathname } = location
+  const { user, setUser } = useContext(AuthContext)
+  const handleLogout = () => {
+    setAuthToken('')
+    setUser(null)
+    if (pathname !== '/') history.push('/')
+  }
+
   return (
     <HeaderContainer>
       <LeftContainer>
         <Brand>我的第一個部落格</Brand>
         <NavbarList>
-          <Nav to="/" $active={location.pathname === '/'}>首頁</Nav>
-          <Nav to="/about" $active={location.pathname === '/about'}>發布文章</Nav>
+          <Nav to="/" $active={pathname === '/'}>首頁</Nav>
+          { user &&<Nav to="/about" $active={pathname === '/about'}>發布文章</Nav> }
         </NavbarList>
       </LeftContainer>
       <NavbarList>
-        <Nav to="/login" $active={location.pathname === '/login'}>登入</Nav>
+        { !user && <Nav to="/login" $active={pathname === '/login'}>登入</Nav> }
+        { user && <Nav to="/" onClick={handleLogout}>登出</Nav> }
       </NavbarList>
     </HeaderContainer>
   )
