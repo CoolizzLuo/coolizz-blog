@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import Router from './Router'
 import Header from './Header'
+import Footer from './Footer'
 import { AuthContext } from '../context'
 import { getMe } from '../WebAPI'
 import { getAuthToken } from '../utils'
@@ -30,6 +31,7 @@ export default function App() {
         <Router>
           <Header/>
         </Router>
+        <Footer/>
       </Root>
     </AuthContext.Provider>
   )

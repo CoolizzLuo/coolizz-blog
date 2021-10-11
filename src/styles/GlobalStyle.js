@@ -8,8 +8,13 @@ const GlobalStyles = css`
   list-style: none;
   font-family: '微軟正黑體','Roboto';
 }
-html, body, #root {
-  width: 100%;
+
+a {
+  text-indent: none;
+  color: #333;
+}
+html, body {
+  height: 100vh;
 }
 `
 
