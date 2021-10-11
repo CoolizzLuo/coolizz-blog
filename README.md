@@ -25,3 +25,12 @@
   - react
   - react-router-dom
   - @emotion
+
+- GetAllPosts
+  - https://student-json-api.lidemy.me/posts?_sort=createdAt&_order=desc
+- GetPostById
+  - https://student-json-api.lidemy.me/posts?id=1
+- Login
+  - https://student-json-api.lidemy.me/login
+- GetMe
+  - https://student-json-api.lidemy.me/me

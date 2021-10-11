@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import styled from 'styled-components'
+import styled from 'styled-component'
 import { Link, useLocation } from 'react-router-dom'
 import { AuthContext } from '../context'
 import { setAuthToken } from '../utils'
