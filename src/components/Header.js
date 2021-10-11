@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import styled from 'styled-component'
+import styled from "@emotion/styled/macro";
 import { Link, useLocation } from 'react-router-dom'
 import { AuthContext } from '../context'
 import { setAuthToken } from '../utils'
@@ -56,7 +56,7 @@ const LeftContainer = styled.div`
   }
 `
 
-export default function Header({ history }) {
+const Header = ({ history }) => {
   const location = useLocation()
   const { pathname } = location
   const { user, setUser } = useContext(AuthContext)
@@ -72,7 +72,7 @@ export default function Header({ history }) {
         <Brand>我的第一個部落格</Brand>
         <NavbarList>
           <Nav to="/" $active={pathname === '/'}>首頁</Nav>
-          { user &&<Nav to="/about" $active={pathname === '/about'}>發布文章</Nav> }
+          <Nav to="/about" $active={pathname === '/about'}>發布文章</Nav>
         </NavbarList>
       </LeftContainer>
       <NavbarList>
@@ -82,3 +82,5 @@ export default function Header({ history }) {
     </HeaderContainer>
   )
 }
+
+export default Header

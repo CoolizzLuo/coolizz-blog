@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import styled from 'styled-component'
+import styled from '@emotion/styled'
 import Router from './Router'
 import Header from './Header'
 import { AuthContext } from '../context'
