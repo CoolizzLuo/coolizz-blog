@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import styled from "@emotion/styled/macro";
-import { Link, useLocation } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import { AuthContext } from '../context'
 import { setAuthToken } from '../utils'
 
@@ -19,9 +19,9 @@ const HeaderContainer = styled.div`
   box-sizing: border-box;
 `
 
-const Brand = styled.div`
+const Brand = styled(Link)`
   font-size: 32px;
-  font-weight: bold;
+  font-weight: 700;
 `
 
 const NavbarList = styled.div`
@@ -31,7 +31,9 @@ const NavbarList = styled.div`
 
 `
 
-const Nav = styled(Link)`
+const Nav = styled(NavLink, {
+  activeClassName: 'active',
+})`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,19 +44,14 @@ const Nav = styled(Link)`
   color: #000;
   text-decoration: none;
 
-  ${({$active}) => $active && `
+  &.active {
     background: rgba(0, 0, 0, 0.1);
-  `}
-`
-
-const LeftContainer = styled.div`
-  display: flex;
-  align-items: center;
-
-  ${NavbarList} {
-    margin-left: 64px;
   }
 `
+
+// &.${({activeClassName}) => activeClassName} {
+//   background: rgba(0, 0, 0, 0.1);
+// }
 
 const Header = ({ history }) => {
   const location = useLocation()
@@ -68,16 +65,13 @@ const Header = ({ history }) => {
 
   return (
     <HeaderContainer>
-      <LeftContainer>
-        <Brand>我的第一個部落格</Brand>
-        <NavbarList>
-          <Nav to="/" $active={pathname === '/'}>首頁</Nav>
-          <Nav to="/about" $active={pathname === '/about'}>發布文章</Nav>
-        </NavbarList>
-      </LeftContainer>
+      <Brand to="/">我的第一個部落格</Brand>
       <NavbarList>
-        { !user && <Nav to="/login" $active={pathname === '/login'}>登入</Nav> }
-        { user && <Nav to="/" onClick={handleLogout}>登出</Nav> }
+        <Nav exact to="/">首頁</Nav>
+        <Nav to="/new_post">發布文章</Nav>
+        <Nav to="/about">關於我</Nav>
+        <Nav to="/login">登入</Nav>
+        <Nav to="/" onClick={handleLogout}>登出</Nav>
       </NavbarList>
     </HeaderContainer>
   )

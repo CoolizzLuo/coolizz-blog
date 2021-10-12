@@ -1,7 +1,8 @@
 import styled from "@emotion/styled/macro";
 
 const FooterContainer = styled.footer`
-  font-size: 1.5rem;
+  padding: 4px 0;
+  font-size: 20px;
   text-align: center;
   
   a {
@@ -9,7 +10,6 @@ const FooterContainer = styled.footer`
     color: #74b9ff;
   }
 `
-
 
 const Footer = () => {
   return (
