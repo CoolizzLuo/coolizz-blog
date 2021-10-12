@@ -1,8 +1,11 @@
+import Layout from '../components/Layout'
 
-const NewPostPage = () => {
+const PostPage = () => {
   return (
-    <h1>New post page</h1>
+    <Layout>
+      <h1>post page</h1>
+    </Layout>
   )
 }
 
-export default NewPostPage
+export default PostPage

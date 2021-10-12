@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import styled from "@emotion/styled/macro";
-import { NavLink, Link, useLocation } from 'react-router-dom'
+import { NavLink, Link, useLocation, withRouter } from 'react-router-dom'
 import { AuthContext } from '../context'
 import { setAuthToken } from '../utils'
 
@@ -77,4 +77,4 @@ const Header = ({ history }) => {
   )
 }
 
-export default Header
+export default withRouter(Header)

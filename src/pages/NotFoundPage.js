@@ -1,9 +1,10 @@
+import Layout from '../components/Layout'
 import React from 'react'
 
 const NotFound = () => (
-  <div className="not-found">
-    <h2>Not Found Page</h2>
-  </div>
+  <Layout>
+    <h1>Not Found Page</h1>
+  </Layout>
 );
 
 export default NotFound

@@ -1,4 +1,4 @@
-
+import Layout from '../components/Layout'
 import { toast } from 'react-toastify'
 
 const LoginPage = () => {
@@ -7,10 +7,10 @@ const LoginPage = () => {
   }
 
   return (
-    <>
+    <Layout>
       <h1>login page</h1>
       <button onClick={test}>toast</button>
-    </>
+    </Layout>
   )
 }
 

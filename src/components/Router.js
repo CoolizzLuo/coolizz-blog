@@ -8,9 +8,8 @@ import LoginPage from '../pages/LoginPage'
 import NotFoundPage from '../pages/NotFoundPage'
 
 
-const Router = ({ children }) => (
+const Router = () => (
   <HashRouter>
-    { children }
     <Switch>
       <Route path="/" exact component={HomePage} />
       <Route path="/about" component={AboutPage} />

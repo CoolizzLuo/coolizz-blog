@@ -1,7 +1,10 @@
+import Layout from '../components/Layout'
 
 const HomePage = () => {
   return (
-    <h1>home page</h1>
+    <Layout>
+      <h1>Home page</h1>
+    </Layout>
   )
 }
 
