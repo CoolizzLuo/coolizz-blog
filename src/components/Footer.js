@@ -1,11 +1,13 @@
 import styled from "@emotion/styled/macro";
 
 const FooterContainer = styled.footer`
-  position: relative;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  font-size: 1.5rem;
   text-align: center;
+  
+  a {
+    font-style: italic;
+    color: #74b9ff;
+  }
 `
 
 

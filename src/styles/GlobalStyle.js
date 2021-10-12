@@ -2,20 +2,22 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
 const GlobalStyles = css`
-* {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-family: '微軟正黑體','Roboto';
-}
+  @font-face {
+    font-family: Cyber;
+    src: url("https://assets.codepen.io/605876/Blender-Pro-Bold.otf");
+    font-display: swap;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: "Cyber", Futura, sans-serif;
+  }
 
-a {
-  text-indent: none;
-  color: #333;
-}
-html, body {
-  height: 100vh;
-}
+  a {
+    text-decoration: none;
+    color: #333;
+  }
 `
 
 export default GlobalStyles
