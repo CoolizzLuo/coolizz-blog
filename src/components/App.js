@@ -9,7 +9,6 @@ import { getAuthToken } from '../utils'
 
 
 const Root = styled.div`
-  padding-top: 64px;
 `
 
 

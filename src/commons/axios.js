@@ -3,7 +3,7 @@ import { getAuthToken } from '../utils'
 
 const axios = baseURL => {
   const instance = _axios.create({
-    baseURL: baseURL || 'http://localhost:3004/',
+    baseURL: baseURL || 'https://student-json-api.lidemy.me/',
     timeout: 1000
   });
 

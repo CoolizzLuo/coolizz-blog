@@ -5,30 +5,21 @@ import { AuthContext } from '../context'
 import { setAuthToken } from '../utils'
 
 
-const HeaderContainer = styled.div`
-  height: 64px;
+const HeaderContainer = styled.header`
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 0px 32px;
-  box-sizing: border-box;
 `
 
 const Brand = styled(Link)`
-  font-size: 32px;
-  font-weight: 700;
+  font-size: 2rem;
 `
 
 const NavbarList = styled.div`
   display: flex;
-  align-items: center;
-  height: 64px;
-
+  height: 80px;
 `
 
 const Nav = styled(NavLink, {
@@ -39,7 +30,7 @@ const Nav = styled(NavLink, {
   align-items: center;
   height: 100%;
   box-sizing: border-box;
-  width: 100px;
+  width: 120px;
   cursor: pointer;
   color: #000;
   text-decoration: none;
@@ -48,10 +39,6 @@ const Nav = styled(NavLink, {
     background: rgba(0, 0, 0, 0.1);
   }
 `
-
-// &.${({activeClassName}) => activeClassName} {
-//   background: rgba(0, 0, 0, 0.1);
-// }
 
 const Header = ({ history }) => {
   const location = useLocation()
@@ -65,13 +52,13 @@ const Header = ({ history }) => {
 
   return (
     <HeaderContainer>
-      <Brand to="/">我的第一個部落格</Brand>
+      <Brand to="/">Enzo's Blog</Brand>
       <NavbarList>
-        <Nav exact to="/">首頁</Nav>
-        <Nav to="/new_post">發布文章</Nav>
-        <Nav to="/about">關於我</Nav>
-        <Nav to="/login">登入</Nav>
-        <Nav to="/" onClick={handleLogout}>登出</Nav>
+        <Nav exact to="/">Home</Nav>
+        <Nav to="/new_post">Post</Nav>
+        <Nav to="/about">About me</Nav>
+        { !user && <Nav to="/login">login</Nav> }
+        { user && <Nav to="/" onClick={handleLogout}>log out</Nav> }
       </NavbarList>
     </HeaderContainer>
   )

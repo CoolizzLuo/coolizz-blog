@@ -1,5 +1,4 @@
 import { css } from '@emotion/react'
-import styled from '@emotion/styled'
 
 const GlobalStyles = css`
   @font-face {
@@ -12,11 +11,17 @@ const GlobalStyles = css`
     padding: 0;
     list-style: none;
     font-family: "Cyber", Futura, sans-serif;
+    box-sizing: border-box;
+    color: #333;
+  }
+
+  html {
+    font-size: 24px;
+    background: whitesmoke;
   }
 
   a {
     text-decoration: none;
-    color: #333;
   }
 `
 
