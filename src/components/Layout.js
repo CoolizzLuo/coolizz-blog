@@ -13,7 +13,6 @@ const Wrapper = styled.div`
 const Container = styled.div`
   text-align: center;
   height: calc(100vh - 140px);
-  width: 100%;
   overflow: auto;
   padding: 2rem 1rem;
 `

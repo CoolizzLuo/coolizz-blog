@@ -14,6 +14,19 @@ const GlobalStyles = css`
     box-sizing: border-box;
     color: #333;
   }
+  
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: rgb(219,219,219);
+  }
 
   html {
     font-size: 24px;
