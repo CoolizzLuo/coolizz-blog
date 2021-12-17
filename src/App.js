@@ -1,15 +1,11 @@
 import { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
-import Router from './Router'
+import Router from './components/Router'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { AuthContext } from '../context'
-import { getMe } from '../WebAPI'
-import { getAuthToken } from '../utils'
-
-
-const Root = styled.div`
-`
+import { AuthContext } from './context'
+import { getMe } from './WebAPI'
+import { getAuthToken } from './utils'
 
 
 export default function App() {
@@ -26,20 +22,18 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <Root>
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnVisibilityChange
-          draggable
-          pauseOnHover
-          />
-        <Router/>
-      </Root>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnVisibilityChange
+        draggable
+        pauseOnHover
+      />
+      <Router />
     </AuthContext.Provider>
   )
 }

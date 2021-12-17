@@ -10,33 +10,35 @@ const HeaderContainer = styled.header`
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-`
-
-const Brand = styled(Link)`
-  font-size: 2rem;
 `
 
 const NavbarList = styled.div`
   display: flex;
-  height: 80px;
 `
 
 const Nav = styled(NavLink, {
   activeClassName: 'active',
 })`
   display: flex;
+  font-weight: 100;
   justify-content: center;
   align-items: center;
-  height: 100%;
   box-sizing: border-box;
-  width: 120px;
+  padding: 2px 12px;
+  border-radius: 8px;
   cursor: pointer;
-  color: #000;
+  color: #999;
   text-decoration: none;
 
+  & + & {
+    margin-left: 6px;
+  }
   &.active {
-    background: rgba(0, 0, 0, 0.1);
+    color: #000;
+  }
+  &:hover {
+    color: #444;
+    background: #ddd;
   }
 `
 
@@ -52,13 +54,12 @@ const Header = ({ history }) => {
 
   return (
     <HeaderContainer>
-      <Brand to="/">Enzo's Blog</Brand>
       <NavbarList>
         <Nav exact to="/">Home</Nav>
         <Nav to="/new_post">Post</Nav>
         <Nav to="/about">About me</Nav>
-        { !user && <Nav to="/login">login</Nav> }
-        { user && <Nav to="/" onClick={handleLogout}>log out</Nav> }
+        {!user && <Nav to="/login">login</Nav>}
+        {user && <Nav to="/" onClick={handleLogout}>log out</Nav>}
       </NavbarList>
     </HeaderContainer>
   )

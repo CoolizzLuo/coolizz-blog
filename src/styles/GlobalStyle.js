@@ -33,6 +33,10 @@ const GlobalStyles = css`
     background: whitesmoke;
   }
 
+  body {
+    margin: 32px 0 0;
+  }
+
   a {
     text-decoration: none;
   }

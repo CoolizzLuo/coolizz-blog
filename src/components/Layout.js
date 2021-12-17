@@ -8,25 +8,27 @@ const Wrapper = styled.div`
   align-items: center;
   margin: 0 auto;
   width: 80%;
+  max-width: 1200px;
 `
 
 const Container = styled.div`
   text-align: center;
-  height: calc(100vh - 140px);
+  height: calc(100vh - 204px);
   overflow: auto;
   padding: 2rem 1rem;
+  margin: 24px 0;
 `
 
 
 const Layout = ({ children }) => {
-  
+
   return (
     <Wrapper>
-      <Header/>
+      <Header />
       <Container>
-        { children }
+        {children}
       </Container>
-      <Footer/>
+      <Footer />
     </Wrapper>
   )
 };
