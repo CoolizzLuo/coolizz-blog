@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import styled from "@emotion/styled/macro";
 import LoginModal from './LoginModal';
 import useToggle from '../../hooks/useToggle';
-import { useLocation, useHistory } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { AuthContext } from '../../context'
 import { clearAuthToken } from '../../utils'
 
@@ -27,13 +27,11 @@ const Button = styled.button`
 
 const UserNav = () => {
   const [isModalOpen, toggleModal] = useToggle()
-  const { history } = useHistory()
-  const { pathname } = useLocation()
   const { user, setUser } = useContext(AuthContext)
   const handleLogout = () => {
     clearAuthToken()
     setUser(null)
-    if (pathname !== '/') history.push('/')
+    toast.warning('Logout success !')
   }
   return (
     <>
