@@ -1,20 +1,13 @@
 import { useContext } from 'react'
-import styled from '@emotion/styled'
+import Modal from '../Modal'
+import styled from "@emotion/styled/macro";
 import decode from 'jwt-decode'
-import axios from '../commons/axios'
+import axios from '../../commons/axios'
 import { useForm } from "react-hook-form"
 import { toast } from 'react-toastify'
-import { AuthContext } from '../context'
-import { setAuthToken } from '../utils'
+import { AuthContext } from '../../context'
+import { setAuthToken } from '../../utils'
 
-
-
-const LoginWrapper = styled.div`
-  display: flex;
-  height: 70%;
-  justify-content: center;
-  align-items: center;
-`
 
 const Form = styled.form`
   font-size: .8rem;
@@ -63,11 +56,19 @@ const Button = styled.button`
   background-color: #a29bfe;
   border-color: transparent;
   border-radius: 4px;
+  box-shadow: 2px 2px 2px #666;
   color: #fff;
   cursor: pointer;
+  transition: all .3s;
+
+  &:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
 `
 
-const LoginPage = ({ history }) => {
+
+const LoginModal = ({ handleToggle }) => {
   const { register, handleSubmit, formState: { errors } } = useForm()
   const { user, setUser } = useContext(AuthContext)
 
@@ -86,7 +87,7 @@ const LoginPage = ({ history }) => {
 
             const tokenUser = decode(token)
             setUser(tokenUser.username)
-            history.push('/')
+            handleToggle()
             return `Hi, ${tokenUser.username} welcome` || 'Login success 👌'
           }
         },
@@ -100,7 +101,7 @@ const LoginPage = ({ history }) => {
   }
 
   return (
-    <LoginWrapper>
+    <Modal>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Label>Username</Label>
@@ -136,8 +137,8 @@ const LoginPage = ({ history }) => {
         </div>
         <Button>Login</Button>
       </Form>
-    </LoginWrapper>
+    </Modal>
   )
 }
 
-export default LoginPage
+export default LoginModal

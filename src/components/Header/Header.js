@@ -1,8 +1,8 @@
-import { useContext } from 'react'
+
 import styled from "@emotion/styled/macro";
-import { NavLink, Link, useLocation, withRouter } from 'react-router-dom'
-import { AuthContext } from '../context'
-import { setAuthToken } from '../utils'
+import { NavLink } from 'react-router-dom'
+import UserNav from './UserNav';
+
 
 
 const HeaderContainer = styled.header`
@@ -19,8 +19,6 @@ const NavbarList = styled.div`
 const Nav = styled(NavLink, {
   activeClassName: 'active',
 })`
-  display: flex;
-  font-weight: 100;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
@@ -42,27 +40,17 @@ const Nav = styled(NavLink, {
   }
 `
 
-const Header = ({ history }) => {
-  const location = useLocation()
-  const { pathname } = location
-  const { user, setUser } = useContext(AuthContext)
-  const handleLogout = () => {
-    setAuthToken('')
-    setUser(null)
-    if (pathname !== '/') history.push('/')
-  }
-
+const Header = () => {
   return (
     <HeaderContainer>
       <NavbarList>
         <Nav exact to="/">Home</Nav>
         <Nav to="/new_post">Post</Nav>
         <Nav to="/about">About me</Nav>
-        {!user && <Nav to="/login">login</Nav>}
-        {user && <Nav to="/" onClick={handleLogout}>log out</Nav>}
       </NavbarList>
+      <UserNav />
     </HeaderContainer>
   )
 }
 
-export default withRouter(Header)
+export default Header

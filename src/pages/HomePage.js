@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
-import Layout from '../components/Layout'
 import { getPosts } from '../WebAPI'
 
 
@@ -40,10 +39,9 @@ const HomePage = () => {
   }, []);
 
   return (
-    <Layout>
-      <h1>Home page</h1>
+    <>
       {posts.map(post => <Post key={post.id} post={post} />)}
-    </Layout>
+    </>
   )
 }
 

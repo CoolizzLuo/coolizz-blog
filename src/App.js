@@ -1,18 +1,38 @@
-import { useState, useEffect } from 'react'
+import { useState, useLayoutEffect } from 'react'
 import styled from '@emotion/styled'
-import Router from './components/Router'
+import { HashRouter as Router } from 'react-router-dom'
+import RouteSwitch from './components/RouteSwitch'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Header from './components/Header'
+import Footer from './components/Footer'
 import { AuthContext } from './context'
 import { getMe } from './WebAPI'
 import { getAuthToken } from './utils'
+
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 30px;
+  max-width: 768px;
+`
+
+const Container = styled.div`
+  text-align: center;
+  height: calc(100vh - 204px);
+  overflow: auto;
+  margin: 24px 0;
+`
 
 
 export default function App() {
   const [user, setUser] = useState(null)
   const token = getAuthToken()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getMe().then((res) => {
       if (res.ok !== 1) return
       setUser(res.data)
@@ -33,7 +53,15 @@ export default function App() {
         draggable
         pauseOnHover
       />
-      <Router />
+      <Layout>
+        <Router>
+          <Header />
+          <Container>
+            <RouteSwitch />
+          </Container>
+          <Footer />
+        </Router>
+      </Layout>
     </AuthContext.Provider>
   )
 }
