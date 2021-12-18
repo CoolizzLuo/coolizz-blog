@@ -1,14 +1,8 @@
 import { useState, useEffect } from 'react'
+import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { getPosts } from '../../WebAPI'
+import { getPosts } from '../WebAPI'
 
-
-const Root = styled.div`
-  width: 80%;
-  margin: 0 auto;
-`
 
 const PostContainer = styled.div`
   border-bottom: 1px solid rgba(0, 12, 34, 0.2);
@@ -22,6 +16,7 @@ const PostTitle = styled(Link)`
   font-size: 24px;
   color: #333;
   text-decoration: none;
+  overflow: hidden;
 `
 const PostDate = styled.div`
   color: rgba(0, 0, 0, 0.8);
@@ -36,11 +31,7 @@ const Post = ({ post }) => {
   )
 }
 
-Post.propTypes = {
-  post: PropTypes.object
-}
-
-export default function HomePage() {
+const HomePage = () => {
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
@@ -48,8 +39,10 @@ export default function HomePage() {
   }, []);
 
   return (
-    <Root>
+    <>
       {posts.map(post => <Post key={post.id} post={post} />)}
-    </Root>
+    </>
   )
 }
+
+export default HomePage
