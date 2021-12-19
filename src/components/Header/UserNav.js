@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import styled from "@emotion/styled/macro";
-import LoginForm from './LoginForm';
+import styled from '@emotion/styled/macro';
+import ModalForm from './ModalForm/ModalForm';
 import useToggle from '../../hooks/useToggle';
 import Modal from '../Modal';
 import { toast } from 'react-toastify'
@@ -27,10 +27,10 @@ const Button = styled.button`
   }
 `
 
-const LoginFormModal = ({ handleToggle }) => {
+const Form = ({ handleToggle }) => {
   return (
     <Modal>
-      <LoginForm handleToggle={handleToggle} />
+      <ModalForm handleToggle={handleToggle} />
     </Modal>
   )
 }
@@ -45,7 +45,7 @@ const UserNav = () => {
   }
   return (
     <>
-      {isModalOpen && <LoginFormModal handleToggle={toggleModal} />}
+      {isModalOpen && <Form handleToggle={toggleModal} />}
       {
         !user ? (
           <Button onClick={toggleModal}>login</Button>

@@ -32,7 +32,7 @@ const GlobalStyles = css`
   }
 
   html {
-    font-size: 24px;
+    font-size: 20px;
     background: whitesmoke;
   }
 
