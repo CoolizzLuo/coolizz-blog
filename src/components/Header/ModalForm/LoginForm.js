@@ -6,6 +6,16 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { AuthContext } from '../../../context'
 import { setAuthToken } from '../../../utils'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faEye,
+  faCheckCircle
+} from '@fortawesome/free-solid-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+
+library.add(fab)
 
 
 const H2 = styled.h2`
@@ -20,7 +30,7 @@ const Form = styled.form`
 const InputField = styled.div`
   position: relative;
   width: 100%;
-  margin: 1rem 0 1rem;
+  margin: .75rem 0 .75rem;
 `
 
 const InputLabel = styled.div`
@@ -75,6 +85,27 @@ const ErrorMsg = styled.p`
   text-align: right;
   color: #f02849;
   font-weight: 300;
+`
+
+const FontAwesomeEye = styled(FontAwesomeIcon)`
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+`
+const PasswordCheckWrapper = styled.div`
+  transition: 0.2s opacity;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  ${(props) => props.$active && `opacity: 1;`}
+`
+const PasswordCheck = styled.p`
+  margin: 0px 15px 0px 5px;
+  color: #ababab;
+  ${(props) => props.$checked && `color: #000000;`}
 `
 
 const SubmitBtn = styled.button`
@@ -165,8 +196,8 @@ const LoginForm = ({ toggleModal, switchForm }) => {
         </InputField>
         <InputField>
           <Input
-            type="password"
-            placeholder="Password"
+            type="current-password"
+            placeholder="password"
             $danger={errors.password}
             {...register(
               "password",
@@ -179,8 +210,26 @@ const LoginForm = ({ toggleModal, switchForm }) => {
               }
             )}
           />
-          <InputLabel children='Password' />
+          <InputLabel children='password' />
           {errors.password && <ErrorMsg>{errors.password.message}</ErrorMsg>}
+          {/* <PasswordCheckWrapper $active={password}>
+              <FontAwesomeIcon
+                icon={faCheckCircle}
+                size='sm'
+                color={password.length > 7 ? '#4AE7A5' : '#ABABAB'}
+              />
+              <PasswordCheck $checked={password.length > 7}>
+                8 Characters min.
+              </PasswordCheck>
+              <FontAwesomeIcon
+                icon={faCheckCircle}
+                size='sm'
+                color={/[0-9]/.test(password) ? '#4AE7A5' : '#ABABAB'}
+              />
+              <PasswordCheck $checked={/[0-9]/.test(password)}>
+                One number
+              </PasswordCheck>
+            </PasswordCheckWrapper> */}
         </InputField>
         <SubmitBtn>Log In</SubmitBtn>
       </Form>

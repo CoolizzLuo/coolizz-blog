@@ -195,6 +195,25 @@ const RegisterForm = ({ toggleModal, switchForm }) => {
           <InputLabel children='Password' />
           {errors.password && <ErrorMsg>{errors.password.message}</ErrorMsg>}
         </InputField>
+        <InputField>
+          <Input
+            type="password"
+            placeholder="Password"
+            $danger={errors.password}
+            {...register(
+              "password",
+              {
+                required: 'password is required',
+                minLength: {
+                  value: 6,
+                  message: 'cannot be less than 6 digits'
+                }
+              }
+            )}
+          />
+          <InputLabel children='Password' />
+          {errors.password && <ErrorMsg>{errors.password.message}</ErrorMsg>}
+        </InputField>
         <SubmitBtn>Sign up</SubmitBtn>
       </Form>
       <Note>

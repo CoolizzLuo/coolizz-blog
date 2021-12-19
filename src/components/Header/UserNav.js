@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import styled from '@emotion/styled/macro';
-import ModalForm from './ModalForm/ModalForm';
 import useToggle from '../../hooks/useToggle';
+import ModalForm from './ModalForm/ModalForm';
 import Modal from '../Modal';
 import { toast } from 'react-toastify'
 import { AuthContext } from '../../context'

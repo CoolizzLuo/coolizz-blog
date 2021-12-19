@@ -1,13 +1,10 @@
 import { useState } from 'react'
 import styled from '@emotion/styled/macro';
+import useToggle from '../../../hooks/useToggle';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faArrowLeft,
-  faEye,
-  faCheckCircle
-} from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 
@@ -45,8 +42,7 @@ const BackBtn = styled.div`
 
 
 const ModalForm = ({ handleToggle }) => {
-  const [isLoginForm, setIsLoginForm] = useState(true)
-  const switchForm = () => setIsLoginForm((bool) => !bool)
+  const [isLoginForm, toggleForm] = useToggle(true)
 
   return (
     <Wrapper>
@@ -56,8 +52,8 @@ const ModalForm = ({ handleToggle }) => {
       </BackBtn>
       {
         isLoginForm ?
-          <LoginForm toggleModal={handleToggle} switchForm={switchForm} /> :
-          <RegisterForm toggleModal={handleToggle} switchForm={switchForm} />
+          <LoginForm toggleModal={handleToggle} switchForm={toggleForm} /> :
+          <RegisterForm toggleModal={handleToggle} switchForm={toggleForm} />
       }
 
     </Wrapper>
