@@ -10,7 +10,10 @@ const GlobalStyles = css`
     margin: 0;
     padding: 0;
     list-style: none;
-    font-family: "Cyber", Futura, sans-serif;
+    /* font-family: "Cyber", Futura, sans-serif; */
+    font-family: -apple-system, "Cyber", BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
     box-sizing: border-box;
     color: #333;
   }
