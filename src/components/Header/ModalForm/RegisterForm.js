@@ -58,11 +58,37 @@ const Input = styled.input`
   }
   &:focus + ${InputLabel}, &:not(:placeholder-shown) + ${InputLabel} {
     color: #757575;
-    transform: scale(0.85) translate(-20px, -44px);
+    transform: scale(0.85) translate(-20px, -40px);
   }
   ${({ $danger }) => $danger && `
     border-color: #f02849;
   `}
+`
+
+const CheckboxField = styled.div`
+  position: relative;
+  width: 100%;
+  margin: 1.25rem 0 .75rem;
+`
+
+const CheckboxLabel = styled.label`
+  display: grid;
+  grid-template-columns: 1rem auto;
+  gap: 0.5em;
+  line-height: 1.2;
+  font-size: 13px;
+  color: #757575;
+  font-weight: 500;
+  margin: 10px 0px 25px;
+  cursor: pointer;
+
+  ${({ $danger }) => $danger && `
+    color: #f02849;
+  `}
+`
+
+const Checkbox = styled.input`
+  transform: translate(3px, 3px);
 `
 
 const ErrorMsg = styled.p`
@@ -133,8 +159,11 @@ const Note = styled.div`
 `
 
 const schema = yup.object({
-  username: yup.string().required(),
-  password: yup.string().min(6).max(18).required(),
+  nickname: yup.string().min(2).max(8).required(),
+  username: yup.string().min(4).max(8).required(),
+  password: yup.string().min(6, 'must be at least 6 character').max(12, 'must be at most 12 character').required(),
+  confirmPassword: yup.string().min(6, 'must be at least 6 character').max(12, 'must be at most 12 character').required(),
+  checkRules: yup.boolean().oneOf([true], '(must be required)'),
 }).required()
 
 const LoginForm = ({ toggleModal, switchForm }) => {
@@ -207,14 +236,25 @@ const LoginForm = ({ toggleModal, switchForm }) => {
         </InputField>
         <InputField>
           <Input
-            type="current-password"
+            type="password"
             placeholder="..."
-            $danger={errors.password}
-            {...register("check-password")}
+            $danger={errors.confirmPassword}
+            {...register("confirmPassword")}
           />
-          <InputLabel>Password</InputLabel>
-          {errors.password && <ErrorMsg>{errors.password.message}</ErrorMsg>}
+          <InputLabel>Confirm Password</InputLabel>
+          {errors.confirmPassword && <ErrorMsg>{errors.confirmPassword.message}</ErrorMsg>}
         </InputField>
+        <CheckboxField>
+          <CheckboxLabel $danger={errors.checkRules}>
+            <Checkbox
+              type="checkbox"
+              $danger={errors.checkRules}
+              {...register("checkRules")}
+            />
+            By creating account, you agree to accept our Privacy Policy, Terms
+            of Service and Notification settings. {errors.checkRules && errors.checkRules.message}
+          </CheckboxLabel>
+        </CheckboxField>
         <SubmitBtn>Sing Up</SubmitBtn>
       </Form>
       <Note>

@@ -58,7 +58,7 @@ const Input = styled.input`
   }
   &:focus + ${InputLabel}, &:not(:placeholder-shown) + ${InputLabel} {
     color: #757575;
-    transform: scale(0.85) translate(-20px, -44px);
+    transform: scale(0.85) translate(-20px, -40px);
   }
   ${({ $danger }) => $danger && `
     border-color: #f02849;
