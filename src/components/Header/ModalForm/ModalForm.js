@@ -13,7 +13,7 @@ library.add(fab)
 const Wrapper = styled.div`
   position: relative;
   font-size: .8rem;
-  width: 350px;
+  width: 400px;
   padding: 1.5rem 1.25rem 1.25rem;
   border-radius: 10px;
   background: #fff;

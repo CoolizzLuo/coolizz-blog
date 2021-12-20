@@ -30,7 +30,7 @@ const InputLabel = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  padding: .5rem .7rem;
+  padding: .7rem .7rem .5rem;
   color: #aaa;
   transition: transform 0.1s;
   pointer-events: none;
@@ -42,7 +42,7 @@ const Input = styled.input`
   border: 1px #dbdbdb solid;
   border: 1px solid transparent;
   border-radius: 5px;
-  padding: .4rem .7rem .4rem;
+  padding: 1rem .7rem .4rem;
   margin: 0 0 .6rem;
   outline: none;
   letter-spacing: 0.5px;
@@ -58,7 +58,7 @@ const Input = styled.input`
   }
   &:focus + ${InputLabel}, &:not(:placeholder-shown) + ${InputLabel} {
     color: #757575;
-    transform: scale(0.85) translate(-20px, -40px);
+    transform: scale(0.75) translate(-18px, -18px);
   }
   ${({ $danger }) => $danger && `
     border-color: #f02849;
@@ -161,8 +161,8 @@ const Note = styled.div`
 const schema = yup.object({
   nickname: yup.string().min(2).max(8).required(),
   username: yup.string().min(4).max(8).required(),
-  password: yup.string().min(6, 'must be at least 6 character').max(12, 'must be at most 12 character').required(),
-  confirmPassword: yup.string().min(6, 'must be at least 6 character').max(12, 'must be at most 12 character').required(),
+  password: yup.string().min(6).max(12).required(),
+  confirmPassword: yup.string().min(6).max(12).required(),
   checkRules: yup.boolean().oneOf([true], '(must be required)'),
 }).required()
 

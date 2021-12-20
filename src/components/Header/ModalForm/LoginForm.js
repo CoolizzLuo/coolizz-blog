@@ -30,7 +30,7 @@ const InputLabel = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  padding: .5rem .7rem;
+  padding: .7rem .7rem .5rem;
   color: #aaa;
   transition: transform 0.1s;
   pointer-events: none;
@@ -42,7 +42,7 @@ const Input = styled.input`
   border: 1px #dbdbdb solid;
   border: 1px solid transparent;
   border-radius: 5px;
-  padding: .4rem .7rem .4rem;
+  padding: 1rem .7rem .4rem;
   margin: 0 0 .6rem;
   outline: none;
   letter-spacing: 0.5px;
@@ -58,7 +58,7 @@ const Input = styled.input`
   }
   &:focus + ${InputLabel}, &:not(:placeholder-shown) + ${InputLabel} {
     color: #757575;
-    transform: scale(0.85) translate(-20px, -40px);
+    transform: scale(0.85) translate(-14px, -16px);
   }
   ${({ $danger }) => $danger && `
     border-color: #f02849;
