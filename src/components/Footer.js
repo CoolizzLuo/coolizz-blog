@@ -1,4 +1,5 @@
-import styled from "@emotion/styled/macro";
+import styled from '@emotion/styled/macro'
+
 
 const FooterContainer = styled.footer`
   padding: 16px 0 16px;
@@ -11,12 +12,11 @@ const FooterContainer = styled.footer`
   }
 `
 
-const Footer = () => {
-  return (
-    <FooterContainer>
-      &copy; copyright 2021 by <a href={`mailto:duenzo1010@gmail.com`}>Enzo</a>
-    </FooterContainer>
-  )
-}
+const Footer = () => (
+  <FooterContainer>
+    &copy; copyright 2021 by <a href={`mailto:duenzo1010@gmail.com`}>Enzo</a>
+  </FooterContainer>
+)
+
 
 export default Footer

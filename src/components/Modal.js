@@ -1,4 +1,4 @@
-import styled from "@emotion/styled/macro";
+import styled from '@emotion/styled/macro'
 
 
 const Wrapper = styled.div`
@@ -15,13 +15,11 @@ const Wrapper = styled.div`
   animation: zoom-in 1s;
 `
 
-const Modal = ({ children }) => {
+const Modal = ({ children }) => (
+  <Wrapper>
+    {children}
+  </Wrapper>
+)
 
-  return (
-    <Wrapper>
-      {children}
-    </Wrapper>
-  )
-}
 
 export default Modal

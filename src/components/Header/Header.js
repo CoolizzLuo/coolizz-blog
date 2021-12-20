@@ -1,8 +1,13 @@
+import { useContext } from 'react'
 
-import styled from "@emotion/styled/macro";
 import { NavLink } from 'react-router-dom'
-import UserNav from './UserNav';
+import styled from '@emotion/styled/macro'
+import { toast } from 'react-toastify'
 
+import useToggle from '../../hooks/useToggle'
+import FormModal from './FormModal'
+import { AuthContext } from '../../context'
+import { clearAuthToken } from '../../utils'
 
 
 const HeaderContainer = styled.header`
@@ -40,16 +45,52 @@ const Nav = styled(NavLink, {
   }
 `
 
+const Span = styled.span`
+  font-size: 1rem;
+  font-weight: 700;
+  margin-right: 1rem;
+`
+
+const UserBtn = styled.button`
+  font-size: .9rem;
+  padding: 2px 8px;
+  background-color: #a29bfe;
+  /* background-color: #1877f2; */
+  border-color: transparent;
+  border-radius: 4px;
+  box-shadow: 2px 2px 2px #666;
+  color: #fff;
+  cursor: pointer;
+  transition: all .3s;
+
+  &:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+`
+
 const Header = () => {
+  const [isModalOpen, toggleModal] = useToggle()
+  const { user, setUser } = useContext(AuthContext)
+  const handleLogout = () => {
+    clearAuthToken()
+    setUser(null)
+    toast.warning('Logout success !')
+  }
+
   return (
     <HeaderContainer>
+      {isModalOpen && <FormModal handleToggle={toggleModal} />}
       <NavbarList>
         <Nav exact to="/">Home</Nav>
         <Nav to="/new_post">Post</Nav>
         <Nav to="/about">About me</Nav>
       </NavbarList>
-      <UserNav />
-    </HeaderContainer>
+      <div>
+        {user?.username && <Span>{'Hi ' + user.username}</Span>}
+        {user ? <UserBtn onClick={handleLogout}>log out</UserBtn> : <UserBtn onClick={toggleModal}>login</UserBtn>}
+      </div>
+    </HeaderContainer >
   )
 }
 
