@@ -1,5 +1,6 @@
 import styled from '@emotion/styled/macro'
 import useToggle from '../../../hooks/useToggle'
+import Modal from '../../Modal';
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -49,22 +50,24 @@ const BackBtn = styled.div`
   }
 `
 
-const ModalForm = ({ handleToggle }) => {
+const FormModal = ({ handleToggle }) => {
   const [isLoginForm, toggleForm] = useToggle(true)
 
   return (
-    <Wrapper>
-      <BackBtn onClick={handleToggle}>
-        <FontAwesomeIcon icon={faArrowLeft} />
-        <span>Back</span>
-      </BackBtn>
-      {
-        isLoginForm ?
-          <LoginForm toggleModal={handleToggle} switchForm={toggleForm} /> :
-          <RegisterForm toggleModal={handleToggle} switchForm={toggleForm} />
-      }
-    </Wrapper>
+    <Modal>
+      <Wrapper>
+        <BackBtn onClick={handleToggle}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+          <span>Back</span>
+        </BackBtn>
+        {
+          isLoginForm ?
+            <LoginForm toggleModal={handleToggle} switchForm={toggleForm} /> :
+            <RegisterForm toggleModal={handleToggle} switchForm={toggleForm} />
+        }
+      </Wrapper>
+    </Modal>
   )
 }
 
-export default ModalForm
+export default FormModal

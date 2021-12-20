@@ -1,8 +1,7 @@
 import { useContext } from 'react'
 import styled from '@emotion/styled/macro';
 import useToggle from '../../hooks/useToggle';
-import ModalForm from './ModalForm/ModalForm';
-import Modal from '../Modal';
+import FormModal from './FormModal';
 import { toast } from 'react-toastify'
 import { AuthContext } from '../../context'
 import { clearAuthToken } from '../../utils'
@@ -27,14 +26,6 @@ const Button = styled.button`
   }
 `
 
-const Form = ({ handleToggle }) => {
-  return (
-    <Modal>
-      <ModalForm handleToggle={handleToggle} />
-    </Modal>
-  )
-}
-
 const UserNav = () => {
   const [isModalOpen, toggleModal] = useToggle()
   const { user, setUser } = useContext(AuthContext)
@@ -45,7 +36,7 @@ const UserNav = () => {
   }
   return (
     <>
-      {isModalOpen && <Form handleToggle={toggleModal} />}
+      {isModalOpen && <FormModal handleToggle={toggleModal} />}
       {
         !user ? (
           <Button onClick={toggleModal}>login</Button>
