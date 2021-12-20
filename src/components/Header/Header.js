@@ -1,9 +1,11 @@
 import { useContext } from 'react'
+
 import { NavLink } from 'react-router-dom'
 import styled from '@emotion/styled/macro'
-import useToggle from '../../hooks/useToggle';
-import FormModal from './FormModal';
 import { toast } from 'react-toastify'
+
+import useToggle from '../../hooks/useToggle'
+import FormModal from './FormModal'
 import { AuthContext } from '../../context'
 import { clearAuthToken } from '../../utils'
 
@@ -86,11 +88,7 @@ const Header = () => {
       </NavbarList>
       <div>
         {user?.username && <Span>{'Hi ' + user.username}</Span>}
-        {
-          !user ?
-            <UserBtn onClick={toggleModal}>login</UserBtn> :
-            <UserBtn onClick={handleLogout}>log out</UserBtn>
-        }
+        {user ? <UserBtn onClick={handleLogout}>log out</UserBtn> : <UserBtn onClick={toggleModal}>login</UserBtn>}
       </div>
     </HeaderContainer >
   )

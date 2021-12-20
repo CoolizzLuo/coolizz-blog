@@ -1,5 +1,5 @@
-import { useState, useEffect, useReducer } from 'react';
-import axios from 'axios';
+import { useState, useEffect, useReducer } from 'react'
+import axios from 'axios'
 
 const fetchDataReducer = (state, action) => {
   switch (action.type) {
@@ -8,27 +8,27 @@ const fetchDataReducer = (state, action) => {
         ...state,
         isLoading: true,
         isError: false,
-      };
+      }
     case 'FETCH_SUCCESS':
       return {
         ...state,
         isLoading: false,
         isError: false,
         data: action.payload,
-      };
+      }
     case 'FETCH_FAILED':
       return {
         ...state,
         data: { hits: [] },
         isError: true,
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
 const useFetchData = ({ initialFetchUrl, initialData }) => {
-  const [fetchUrl, setFetchUrl] = useState(initialFetchUrl);
+  const [fetchUrl, setFetchUrl] = useState(initialFetchUrl)
   const [{ data, isLoading, isError }, dispatch] = useReducer(
     fetchDataReducer,
     {
@@ -36,41 +36,41 @@ const useFetchData = ({ initialFetchUrl, initialData }) => {
       isLoading: false,
       isError: false,
     },
-  );
+  )
 
   useEffect(() => {
-    let didCancel = false;
+    let didCancel = false
 
     const fetchData = async () => {
       dispatch({
         type: 'FETCH_INIT',
-      });
+      })
       try {
-        const response = await axios.get(fetchUrl);
+        const response = await axios.get(fetchUrl)
 
-        console.log('get response of fetchData', didCancel);
+        console.log('get response of fetchData', didCancel)
         if (!didCancel) {
           dispatch({
             type: 'FETCH_SUCCESS',
             payload: {
               hits: response.data.hits,
             },
-          });
+          })
         }
       } catch (error) {
         if (!didCancel) {
           dispatch({
             type: 'FETCH_FAILED',
-          });
+          })
         }
       }
-    };
+    }
 
-    fetchData();
+    fetchData()
     return () => {
-      didCancel = true;
-    };
-  }, [fetchUrl]);
+      didCancel = true
+    }
+  }, [fetchUrl])
 
   return [
     {
@@ -79,7 +79,7 @@ const useFetchData = ({ initialFetchUrl, initialData }) => {
       isError,
     },
     setFetchUrl,
-  ];
-};
+  ]
+}
 
-export default useFetchData;
+export default useFetchData

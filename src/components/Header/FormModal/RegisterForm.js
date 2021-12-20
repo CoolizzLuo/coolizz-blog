@@ -1,4 +1,14 @@
 import { useContext } from 'react'
+
+import decode from 'jwt-decode'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import { toast } from 'react-toastify'
+
+import axios from '../../../commons/axios'
+import { AuthContext } from '../../../context'
+import { setAuthToken } from '../../../utils'
 import {
   H2,
   Form,
@@ -12,14 +22,6 @@ import {
   SubmitBtn,
   Note
 } from './FormStyle'
-import decode from 'jwt-decode'
-import axios from '../../../commons/axios'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import { toast } from 'react-toastify'
-import { AuthContext } from '../../../context'
-import { setAuthToken } from '../../../utils'
 
 
 const schema = yup.object({
@@ -40,7 +42,7 @@ const LoginForm = ({ toggleModal, switchForm }) => {
     const { nickname, username, password } = data
 
     toast.promise(
-      axios.post('/login', { username, password }),
+      axios.post('/login', { nickname, username, password }),
       {
         pending: 'Login...',
         success: {

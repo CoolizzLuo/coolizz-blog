@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 
+
 const GlobalStyles = css`
   @font-face {
     font-family: Cyber;

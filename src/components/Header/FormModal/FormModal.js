@@ -1,12 +1,14 @@
 import styled from '@emotion/styled/macro'
-import useToggle from '../../../hooks/useToggle'
-import Modal from '../../Modal';
-import LoginForm from './LoginForm'
-import RegisterForm from './RegisterForm'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
+
+import useToggle from '../../../hooks/useToggle'
+import Modal from '../../Modal'
+import LoginForm from './LoginForm'
+import RegisterForm from './RegisterForm'
 
 
 library.add(fab)

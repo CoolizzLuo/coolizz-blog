@@ -1,18 +1,19 @@
 import { getAuthToken } from './utils'
 
+
 const BASE_URL = 'https://student-json-api.lidemy.me'
 
-export const getPosts = async () => {
+const getPosts = async () => {
   return fetch(`${BASE_URL}/posts?_sort=createdAt&_order=desc`)
     .then(res => res.json())
 }
 
-export const getPostById = async (id) => {
+const getPostById = async (id) => {
   return fetch(`${BASE_URL}/posts?id=${id}`)
     .then(res => res.json())
 }
 
-export const login = async (username, password) => {
+const login = async (username, password) => {
   return fetch(`${BASE_URL}/login`, {
     method: 'POST',
     headers: {
@@ -26,7 +27,22 @@ export const login = async (username, password) => {
     .then(res => res.json())
 }
 
-export const getMe = async () => {
+const singUp = async (nickname, username, password) => {
+  return fetch(`${BASE_URL}/login`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      nickname,
+      username,
+      password
+    })
+  })
+    .then(res => res.json())
+}
+
+const getMe = async () => {
   const token = getAuthToken()
 
   return fetch(`${BASE_URL}/me`, {
@@ -35,4 +51,12 @@ export const getMe = async () => {
     }
   })
     .then(res => res.json())
+}
+
+export {
+  getPosts,
+  getPostById,
+  login,
+  singUp,
+  getMe
 }

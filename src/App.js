@@ -1,9 +1,11 @@
 import { useState, useLayoutEffect } from 'react'
+
 import styled from '@emotion/styled'
 import { HashRouter as Router } from 'react-router-dom'
-import RouteSwitch from './components/RouteSwitch'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+
+import RouteSwitch from './components/RouteSwitch'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import { AuthContext } from './context'
@@ -28,7 +30,7 @@ const Container = styled.div`
 `
 
 
-export default function App() {
+const App = () => {
   const [user, setUser] = useState(null)
   const token = getAuthToken()
 
@@ -65,3 +67,5 @@ export default function App() {
     </AuthContext.Provider>
   )
 }
+
+export default App
