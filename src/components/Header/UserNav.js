@@ -11,8 +11,8 @@ import { clearAuthToken } from '../../utils'
 const Button = styled.button`
   font-size: .8rem;
   padding: 2px 8px;
-  /* background-color: #a29bfe; */
-  background-color: #1877f2;
+  background-color: #a29bfe;
+  /* background-color: #1877f2; */
   border-color: transparent;
   border-radius: 4px;
   box-shadow: 2px 2px 2px #666;

@@ -11,7 +11,7 @@ const GlobalStyles = css`
     padding: 0;
     list-style: none;
     /* font-family: "Cyber", Futura, sans-serif; */
-    font-family: -apple-system, "Cyber", BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
     box-sizing: border-box;
@@ -42,6 +42,11 @@ const GlobalStyles = css`
 
   a {
     text-decoration: none;
+  }
+
+  input {
+    font-family: "Cyber", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
   }
 `
 

@@ -1,8 +1,7 @@
-import { useState } from 'react'
-import styled from '@emotion/styled/macro';
-import useToggle from '../../../hooks/useToggle';
-import LoginForm from './LoginForm';
-import RegisterForm from './RegisterForm';
+import styled from '@emotion/styled/macro'
+import useToggle from '../../../hooks/useToggle'
+import LoginForm from './LoginForm'
+import RegisterForm from './RegisterForm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -22,24 +21,33 @@ const Wrapper = styled.div`
 `
 
 const BackBtn = styled.div`
-  font-size: .6rem;
+  font-size: .7rem;
   position: absolute;
+  top: 32px;
+  left: 28px;
   cursor: pointer;
+
   & span {
     margin-left: 10px;
-  }
-  top: 0;
-  left: 0;
-  @media screen and (min-width: 768px) {
-    top: 32px;
-    left: 31px;
+  }  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    right: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #a29bfe;
+    transition: width 1s .2s;
   }
   &:hover {
-    font-weight: bold;
-    border-bottom: 2px solid #3c71ff;
+    font-weight: 700;
+  }
+  &:hover::after {
+    width: 100%;
   }
 `
-
 
 const ModalForm = ({ handleToggle }) => {
   const [isLoginForm, toggleForm] = useToggle(true)
@@ -55,7 +63,6 @@ const ModalForm = ({ handleToggle }) => {
           <LoginForm toggleModal={handleToggle} switchForm={toggleForm} /> :
           <RegisterForm toggleModal={handleToggle} switchForm={toggleForm} />
       }
-
     </Wrapper>
   )
 }

@@ -1,8 +1,10 @@
 import { useContext } from 'react'
-import styled from '@emotion/styled/macro';
+import styled from '@emotion/styled/macro'
 import decode from 'jwt-decode'
 import axios from '../../../commons/axios'
 import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from "yup"
 import { toast } from 'react-toastify'
 import { AuthContext } from '../../../context'
 import { setAuthToken } from '../../../utils'
@@ -20,7 +22,7 @@ const Form = styled.form`
 const InputField = styled.div`
   position: relative;
   width: 100%;
-  margin: 1rem 0 1rem;
+  margin: .75rem 0 .75rem;
 `
 
 const InputLabel = styled.div`
@@ -51,30 +53,26 @@ const Input = styled.input`
   &:placeholder-shown::placeholder {
     color: transparent;
   }
-
   &:focus {
-    border-bottom-color: #333;
     box-shadow: 1px 1px 1px #ccc;
   }
-
   &:focus + ${InputLabel}, &:not(:placeholder-shown) + ${InputLabel} {
     color: #757575;
-    transform: scale(0.85) translate(-20px, -36px);
+    transform: scale(0.85) translate(-20px, -44px);
   }
-
   ${({ $danger }) => $danger && `
-    border-color: #f02849 !important;
+    border-color: #f02849;
   `}
 `
 
 const ErrorMsg = styled.p`
-  font-size: .75rem;
+  font-size: .6rem;
+  font-weight: 500;
   position: absolute;
   bottom: -.5rem;
   width: 100%;
   text-align: right;
   color: #f02849;
-  font-weight: 300;
 `
 
 const SubmitBtn = styled.button`
@@ -82,8 +80,8 @@ const SubmitBtn = styled.button`
   padding: .3rem 1rem;
   width: 100%;
   margin-top: .5rem;
-  /* background-color: #a29bfe; */
-  background-color: #1877f2;
+  background-color: #a29bfe;
+  /* background-color: #1877f2; */
   border-color: transparent;
   border-radius: 4px;
   box-shadow: 2px 2px 2px #666;
@@ -95,6 +93,9 @@ const SubmitBtn = styled.button`
     transform: translate(2px, 2px);
     box-shadow: none;
   }
+  &:hover {
+    transform: scale(1.05);
+  }
 `
 
 const Note = styled.div`
@@ -105,18 +106,42 @@ const Note = styled.div`
   }
 
   button {
-    font-weight: 900;
-    color: #1877f2;
+    position: relative;
+    font-weight: 500;
+    color: #a29bfe;
+    /* color: #1877f2; */
     background: transparent;
     margin-left: 10px;
     border: none;
     cursor: pointer;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: #a29bfe;
+      transition: width 1s .2s;
+    }
+    &:hover::after {
+      width: 100%;
+    }
   }
 `
 
-const RegisterForm = ({ toggleModal, switchForm }) => {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm()
+const schema = yup.object({
+  username: yup.string().required(),
+  password: yup.string().min(6).max(18).required(),
+}).required()
+
+const LoginForm = ({ toggleModal, switchForm }) => {
   const { setUser } = useContext(AuthContext)
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    resolver: yupResolver(schema)
+  })
 
   const onSubmit = async (data) => {
     const { username, password } = data
@@ -153,68 +178,44 @@ const RegisterForm = ({ toggleModal, switchForm }) => {
         <InputField>
           <Input
             type="text"
-            placeholder="Nickname"
+            placeholder="..."
             $danger={errors.nickname}
-            {...register(
-              "nickname",
-              { required: 'nickname is required' }
-            )}
+            {...register("nickname")}
           />
-          <InputLabel children='Nickname' />
+          <InputLabel>Nickname</InputLabel>
           {errors.nickname && <ErrorMsg>{errors.nickname.message}</ErrorMsg>}
         </InputField>
         <InputField>
           <Input
             type="text"
-            placeholder="Username"
+            placeholder="..."
             $danger={errors.username}
-            {...register(
-              "username",
-              { required: 'username is required' }
-            )}
+            {...register("username")}
           />
-          <InputLabel children='Username' />
+          <InputLabel>Username</InputLabel>
           {errors.username && <ErrorMsg>{errors.username.message}</ErrorMsg>}
         </InputField>
         <InputField>
           <Input
             type="password"
-            placeholder="Password"
+            placeholder="..."
             $danger={errors.password}
-            {...register(
-              "password",
-              {
-                required: 'password is required',
-                minLength: {
-                  value: 6,
-                  message: 'cannot be less than 6 digits'
-                }
-              }
-            )}
+            {...register("password")}
           />
-          <InputLabel children='Password' />
+          <InputLabel>Password</InputLabel>
           {errors.password && <ErrorMsg>{errors.password.message}</ErrorMsg>}
         </InputField>
         <InputField>
           <Input
-            type="password"
-            placeholder="Password"
+            type="current-password"
+            placeholder="..."
             $danger={errors.password}
-            {...register(
-              "password",
-              {
-                required: 'password is required',
-                minLength: {
-                  value: 6,
-                  message: 'cannot be less than 6 digits'
-                }
-              }
-            )}
+            {...register("check-password")}
           />
-          <InputLabel children='Password' />
+          <InputLabel>Password</InputLabel>
           {errors.password && <ErrorMsg>{errors.password.message}</ErrorMsg>}
         </InputField>
-        <SubmitBtn>Sign up</SubmitBtn>
+        <SubmitBtn>Sing Up</SubmitBtn>
       </Form>
       <Note>
         <p>Already have an account?</p>
@@ -224,4 +225,4 @@ const RegisterForm = ({ toggleModal, switchForm }) => {
   )
 }
 
-export default RegisterForm
+export default LoginForm
