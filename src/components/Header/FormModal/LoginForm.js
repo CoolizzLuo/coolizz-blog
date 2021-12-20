@@ -7,6 +7,7 @@ import * as yup from "yup"
 import { toast } from 'react-toastify'
 
 import axios from '../../../commons/axios'
+import useFetchData from '../../../hooks/useFetchData'
 import { AuthContext } from '../../../context'
 import { setAuthToken } from '../../../utils'
 import {
@@ -31,6 +32,12 @@ const LoginForm = ({ toggleModal, switchForm }) => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   })
+  const [{ data, isLoading, isError }, setFetchUrl] = useFetchData({
+    initialFetchUrl: 'https://student-json-api.lidemy.me/login',
+    initialData: {
+      hits: [],
+    },
+  });
 
   const onSubmit = async (data) => {
     const { username, password } = data
