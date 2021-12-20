@@ -26,7 +26,7 @@ const schema = yup.object({
   nickname: yup.string().min(2).max(8).required(),
   username: yup.string().min(4).max(8).required(),
   password: yup.string().min(6).max(12).required(),
-  confirmPassword: yup.string().min(6).max(12).required(),
+  confirmPassword: yup.string().min(6).max(12).oneOf([yup.ref('password'), null], 'Passwords must be match').required(),
   checkRules: yup.boolean().oneOf([true], '(must be required)'),
 }).required()
 
@@ -37,7 +37,7 @@ const LoginForm = ({ toggleModal, switchForm }) => {
   })
 
   const onSubmit = async (data) => {
-    const { username, password } = data
+    const { nickname, username, password } = data
 
     toast.promise(
       axios.post('/login', { username, password }),
