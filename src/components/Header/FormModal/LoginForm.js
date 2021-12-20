@@ -38,7 +38,7 @@ const LoginForm = ({ toggleModal, switchForm }) => {
     toast.promise(
       axios.post('/login', { username, password }),
       {
-        pending: 'Login...',
+        pending: 'Loading...',
         success: {
           render({ data }) {
             if (data.data?.ok !== 1) return data.data.message

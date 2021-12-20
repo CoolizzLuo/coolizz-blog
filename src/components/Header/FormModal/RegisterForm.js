@@ -42,9 +42,9 @@ const LoginForm = ({ toggleModal, switchForm }) => {
     const { nickname, username, password } = data
 
     toast.promise(
-      axios.post('/login', { nickname, username, password }),
+      axios.post('/register', { nickname, username, password }),
       {
-        pending: 'Login...',
+        pending: 'Loading...',
         success: {
           render({ data }) {
             if (data.data?.ok !== 1) return data.data.message
