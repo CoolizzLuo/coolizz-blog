@@ -32,12 +32,6 @@ const LoginForm = ({ toggleModal, switchForm }) => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   })
-  const [{ data, isLoading, isError }, setFetchUrl] = useFetchData({
-    initialFetchUrl: 'https://student-json-api.lidemy.me/login',
-    initialData: {
-      hits: [],
-    },
-  });
 
   const onSubmit = async (data) => {
     const { username, password } = data

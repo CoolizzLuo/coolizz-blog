@@ -8,7 +8,7 @@ const HomePage = () => {
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    getPosts().then(setPosts)
+    // getPosts().then(setPosts)
   }, []);
 
   return (
