@@ -6,7 +6,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 5rem;
   inset: 0;
   background: rgba(0, 0, 0, .5);
   transition: all .2s;

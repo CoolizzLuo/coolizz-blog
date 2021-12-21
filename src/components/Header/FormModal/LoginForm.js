@@ -7,6 +7,7 @@ import * as yup from "yup"
 import { toast } from 'react-toastify'
 
 import axios from '../../../commons/axios'
+import useAsync from '../../../hooks/useAsync'
 import { AuthContext } from '../../../context'
 import { setAuthToken } from '../../../utils'
 import {
@@ -56,7 +57,7 @@ const LoginForm = ({ toggleModal, switchForm }) => {
             return data.response.data?.message || 'Login rejected 🤯'
           }
         }
-      }
+      }, { autoClose: 3000 }
     )
   }
 

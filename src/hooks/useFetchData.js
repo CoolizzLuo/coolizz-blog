@@ -1,15 +1,24 @@
 import { useState, useEffect, useReducer } from 'react'
 import axios from 'axios'
+import { toast } from 'react-toastify'
+
 
 const fetchDataReducer = (state, action) => {
+  let toastId = null
   switch (action.type) {
     case 'FETCH_INIT':
+      toastId = toast.loading('Loading...')
       return {
         ...state,
         isLoading: true,
         isError: false,
       }
     case 'FETCH_SUCCESS':
+      toast.update(toastId, {
+        render: 'Request success',
+        type: 'success',
+        isLoading: false
+      })
       return {
         ...state,
         isLoading: false,
@@ -17,6 +26,11 @@ const fetchDataReducer = (state, action) => {
         data: action.payload,
       }
     case 'FETCH_FAILED':
+      toast.update(toastId, {
+        render: 'Request failed',
+        type: 'error',
+        isLoading: false
+      })
       return {
         ...state,
         data: { hits: [] },

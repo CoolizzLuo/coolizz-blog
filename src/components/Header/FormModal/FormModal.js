@@ -18,6 +18,7 @@ const Wrapper = styled.div`
   font-size: .8rem;
   width: 400px;
   padding: 1.5rem 1.25rem 1.25rem;
+  margin: 3rem 0 0;
   border-radius: 10px;
   background: #fff;
   box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0px 0 1px rgb(10 10 10 / 2%);
