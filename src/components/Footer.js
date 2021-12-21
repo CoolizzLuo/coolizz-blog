@@ -2,8 +2,8 @@ import styled from '@emotion/styled/macro'
 
 
 const FooterContainer = styled.footer`
+  font-size: .8rem;
   padding: 16px 0 16px;
-  font-size: 22px;
   text-align: center;
   
   a {

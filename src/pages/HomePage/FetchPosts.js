@@ -38,12 +38,15 @@ const FetchPosts = () => {
   const toastId = useRef(null)
 
   useEffect(() => {
-    loading ? (toastId.current = toast.loading('loading...', { position: 'top-center' })) : toast.dismiss(toastId.current)
+    loading ? (toastId.current = toast.loading('loading...')) : toast.dismiss(toastId.current)
   }, [loading])
+
+  useEffect(() => {
+    if (error) toast.error('Network error')
+  }, [error])
 
   return (
     <>
-
       {value && value.map(post => <Post key={post.id} post={post} />)}
     </>
   )

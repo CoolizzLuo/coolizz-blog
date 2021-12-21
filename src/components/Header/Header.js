@@ -75,7 +75,7 @@ const Header = () => {
   const handleLogout = () => {
     clearAuthToken()
     setUser(null)
-    toast.success('Logout success !', { autoClose: 3000 })
+    toast.warn('Logout success !', { autoClose: 3000 })
   }
 
   return (
