@@ -25,9 +25,10 @@ const Layout = styled.div`
 const Container = styled.div`
   text-align: center;
   /* height: calc(100vh - 204px); */
-  height: calc(100vh - 156px);
+  height: calc(100vh - 64px - 24px - 53px );
   overflow: auto;
-  /* margin: 24px 0; */
+  margin: 24px 0 0;
+  /* padding: 24px 0 0; */
 `
 
 
