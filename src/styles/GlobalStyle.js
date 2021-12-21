@@ -32,6 +32,10 @@ const GlobalStyles = css`
     background: rgb(219,219,219);
   }
 
+  html, body {
+    height: 100vh;
+  }
+
   html {
     font-size: 20px;
     background: whitesmoke;

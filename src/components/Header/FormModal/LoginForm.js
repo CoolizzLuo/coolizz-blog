@@ -63,7 +63,7 @@ const LoginForm = ({ toggleModal, switchForm }) => {
             return data.response.data?.message || 'Login rejected 🤯'
           }
         }
-      }
+      }, { autoClose: 3000 }
     )
   }
 
