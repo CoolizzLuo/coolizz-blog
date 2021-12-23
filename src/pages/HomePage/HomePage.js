@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react'
 
-import { getPosts } from '../WebAPI'
-import FetchPosts from './HomePage/FetchPosts'
+import styled from '@emotion/styled'
 
+import { getPosts } from '../../WebAPI'
+import FetchPosts from './FetchPosts'
+
+
+const Wrapper = styled.div`
+  width: 100%;
+`
 
 const HomePage = () => {
   const [posts, setPosts] = useState([])
@@ -12,9 +18,9 @@ const HomePage = () => {
   }, []);
 
   return (
-    <>
+    <Wrapper>
       <FetchPosts />
-    </>
+    </Wrapper>
   )
 }
 

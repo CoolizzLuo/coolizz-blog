@@ -24,6 +24,7 @@ const Layout = styled.div`
 
 const Container = styled.div`
   text-align: center;
+  width: 100%;
   /* height: calc(100vh - 204px); */
   height: calc(100vh - 64px - 24px - 53px );
   overflow: auto;

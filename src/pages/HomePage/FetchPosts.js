@@ -7,38 +7,67 @@ import { toast, ToastContainer } from 'react-toastify'
 
 
 const PostContainer = styled.div`
-  border-bottom: 1px solid rgba(0, 12, 34, 0.2);
-  padding: 16px;
+  padding: 1.4rem .6rem;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
+
+  & + & {
+    border-top: 1px solid rgba(0, 12, 34, 0.2);
+  }
 `
 
 const PostTitle = styled(Link)`
-  font-size: 24px;
-  color: #333;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #d04444;
   text-decoration: none;
   overflow: hidden;
 `
+
+const PostBody = styled.div`
+  font-size: .8rem;
+  margin: 1rem 0;
+`
+
+const PostInfo = styled.div`
+  display: flex;
+  font-size: .7rem;
+`
+
+const PostAuthor = styled.div`
+  color: #d04444;
+  font-weight: 500;
+`
+
 const PostDate = styled.div`
   color: rgba(0, 0, 0, 0.8);
+  margin-left: .2rem;
 `
 
 const Post = ({ post }) => {
+  const { id, title, body, userId, createdAt } = post
+  const postBody = body.split('\n').slice(0, 2).join(' ')
   return (
     <PostContainer>
-      <PostTitle to={`/post/${post.id}`}>{post.title}</PostTitle>
-      <PostDate>{new Date(post.createdAt).toLocaleString()}</PostDate>
+      <PostTitle to={`/post/${id}`}>{title}</PostTitle>
+      <PostBody>{postBody.length > 30 ? `${postBody.substr(0, 30)}...` : postBody}</PostBody>
+      <PostInfo>
+        <PostAuthor>{userId}</PostAuthor>
+        <PostDate>{' on ' + new Date(createdAt).toLocaleDateString()}</PostDate>
+      </PostInfo>
     </PostContainer>
   )
 }
 
 const FetchPosts = () => {
-  const { loading, error, value } = useFetch(`https://student-json-api.lidemy.me/posts?_sort=createdAt&_order=desc`)
+  const { loading, error, data } = useFetch(`https://student-json-api.lidemy.me/posts?_sort=createdAt&_order=desc`)
   const toastId = useRef(null)
 
   useEffect(() => {
     loading ? (toastId.current = toast.loading('loading...')) : toast.dismiss(toastId.current)
+    return () => toast.dismiss(toastId.current)
   }, [loading])
 
   useEffect(() => {
@@ -47,7 +76,7 @@ const FetchPosts = () => {
 
   return (
     <>
-      {value && value.map(post => <Post key={post.id} post={post} />)}
+      {data && data.map(post => <Post key={post.id} post={post} />)}
     </>
   )
 }
