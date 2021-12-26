@@ -9,7 +9,7 @@ import RouteSwitch from './components/RouteSwitch'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import { AuthContext } from './context'
-import { getMe } from './WebAPI'
+import { getUsers, getMe } from './WebAPI'
 import { getAuthToken } from './utils'
 
 
