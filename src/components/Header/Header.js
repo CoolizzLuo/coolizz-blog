@@ -83,7 +83,7 @@ const Header = () => {
       {isModalOpen && <FormModal handleToggle={toggleModal} />}
       <NavbarList>
         <Nav exact to="/">Home</Nav>
-        <Nav to="/new_post">Post</Nav>
+        {user && <Nav to="/new_post">Post</Nav>}
         <Nav to="/about">About me</Nav>
       </NavbarList>
       <div>

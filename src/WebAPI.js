@@ -3,6 +3,11 @@ import { getAuthToken } from './utils'
 
 const BASE_URL = 'https://student-json-api.lidemy.me'
 
+const getUsers = async () => {
+  return fetch(`${BASE_URL}/users`)
+    .then(res => res.json())
+}
+
 const getPosts = async () => {
   return fetch(`${BASE_URL}/posts?_sort=createdAt&_order=desc`)
     .then(res => res.json())
@@ -54,6 +59,7 @@ const getMe = async () => {
 }
 
 export {
+  getUsers,
   getPosts,
   getPostById,
   login,

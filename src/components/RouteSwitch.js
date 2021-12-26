@@ -12,12 +12,12 @@ import NotFoundPage from '../pages/NotFoundPage'
 
 const RouteSwitch = () => (
   <Switch>
-    <Route path="/" exact component={HomePage} />
-    <Route path="/about" component={AboutPage} />
-    <Route path="/new_post" component={NewPostPage} />
-    <Route path="/post/:id" component={PostPage} />
-    <Route path="/login" component={LoginPage} />
-    <Route component={NotFoundPage} />
+    <Route path='/' exact component={HomePage} />
+    <Route path='/about' component={AboutPage} />
+    <Route path='/new_post' component={NewPostPage} />
+    <Route path='/post/:id' component={PostPage} />
+    <Route path='/login' component={LoginPage} />
+    <Route path='*' component={NotFoundPage} />
   </Switch>
 )
 

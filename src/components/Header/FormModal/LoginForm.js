@@ -54,7 +54,7 @@ const LoginForm = ({ toggleModal, switchForm }) => {
         error: {
           render({ data }) {
             reset()
-            return data.response.data?.message || 'Login rejected 🤯'
+            return data.response?.data?.message || 'Login rejected 🤯'
           }
         }
       }, { autoClose: 3000 }

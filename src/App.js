@@ -9,7 +9,7 @@ import RouteSwitch from './components/RouteSwitch'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import { AuthContext } from './context'
-import { getMe } from './WebAPI'
+import { getUsers, getMe } from './WebAPI'
 import { getAuthToken } from './utils'
 
 
@@ -24,15 +24,18 @@ const Layout = styled.div`
 
 const Container = styled.div`
   text-align: center;
+  width: 100%;
   /* height: calc(100vh - 204px); */
-  height: calc(100vh - 156px);
+  height: calc(100vh - 64px - 24px - 53px );
   overflow: auto;
-  /* margin: 24px 0; */
+  margin: 24px 0 0;
+  /* padding: 24px 0 0; */
 `
 
 
 const App = () => {
   const [user, setUser] = useState(null)
+  const [userList, setUserList] = useState([])
   const token = getAuthToken()
 
   useLayoutEffect(() => {
@@ -42,9 +45,16 @@ const App = () => {
     })
   }, [token])
 
+  useLayoutEffect(() => {
+    getUsers().then((res) => {
+      // if (res.ok !== 1) return
+      setUserList(res)
+    })
+  }, [])
+
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, userList }}>
       <ToastContainer
         position="top-center"
         autoClose={5000}
