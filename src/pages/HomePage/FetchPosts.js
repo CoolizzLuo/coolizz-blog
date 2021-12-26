@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
@@ -11,14 +11,15 @@ import { faTags } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 
 import useFetch from '../../hooks/useFetch'
-import { getUsers } from '../../WebAPI'
+import { AuthContext } from '../../context'
 
 
 library.add(fab)
 
 const PostContainer = styled.article`
+  position: relative;
   background: #fff;
-  padding: 1.4rem 2rem;
+  padding: 1.4rem 1.6rem;
   margin: 2rem 0;
   display: flex;
   flex-direction: column;
@@ -81,21 +82,20 @@ const PostTag = styled.span`
 
 `
 
-const Post = ({ post }) => {
-  const [users, setUsers] = useState([])
+const ReadMoreBtn = styled(Link)`
+  position: absolute;
+  right: 1.6rem;
+  bottom: 1.4rem;
+  font-size: .6rem;
+  color: #338ccc;
+`
+
+const Post = ({ post, userList }) => {
   const { id, title, body, userId, createdAt } = post
   const postBody = body.split('\n').slice(0, 2).join(' ')
 
   const timeParser = (time) => new Date(createdAt).toLocaleString('zh-TW', { hour12: false })
-  const userParser = (userId) => users.find((user) => user.id === userId)
-
-  useEffect(() => {
-    getUsers().then((res) => {
-      // if (res.ok !== 1) return
-      setUsers(res)
-    })
-  }, [])
-
+  const userParser = (userId) => userList.find((user) => user.id === userId)
 
   return (
     <PostContainer>
@@ -119,12 +119,15 @@ const Post = ({ post }) => {
       <PostBody>
         {postBody.length > 30 ? `${postBody.substr(0, 30)}...` : postBody}
       </PostBody>
+      <ReadMoreBtn to={`/post/${id}`}>Read More</ReadMoreBtn>
     </PostContainer>
   )
 }
 
-const FetchPosts = () => {
-  const { loading, error, data } = useFetch(`https://student-json-api.lidemy.me/posts?_sort=createdAt&_order=desc`)
+const FetchPosts = ({ page = 1 }) => {
+  const { userList } = useContext(AuthContext)
+  // const { loading, error, data } = useFetch(`https://student-json-api.lidemy.me/posts?_sort=createdAt&_order=desc`)
+  const { loading, error, data } = useFetch(`https://student-json-api.lidemy.me/posts?_page=${page}&_limit=5&_sort=createdAt&_order=desc`)
   const toastId = useRef(null)
 
   useEffect(() => {
@@ -136,9 +139,11 @@ const FetchPosts = () => {
     if (error) toast.error('Network error')
   }, [error])
 
+
+
   return (
     <>
-      {data && data.map(post => <Post key={post.id} post={post} />)}
+      {data && data.map(post => <Post key={post.id} post={post} userList={userList} />)}
     </>
   )
 }
