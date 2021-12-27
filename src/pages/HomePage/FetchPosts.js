@@ -11,6 +11,7 @@ import { faTags } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 
 import useFetch from '../../hooks/useFetch'
+import usePagination from '../../hooks/usePagination'
 import { AuthContext } from '../../context'
 import Pagination from '../../components/Pagination'
 
@@ -125,18 +126,11 @@ const Post = ({ post, userList }) => {
   )
 }
 
-const FetchPosts = ({ page = 1 }) => {
+const FetchPosts = ({ defaultPage = 1 }) => {
   const { userList } = useContext(AuthContext)
-  const { loading, error, data = [] } = useFetch(`https://student-json-api.lidemy.me/posts?_sort=createdAt&_order=desc`)
-  // const { loading, error, data } = useFetch(`https://student-json-api.lidemy.me/posts?_page=${page}&_limit=5&_sort=createdAt&_order=desc`)
   const toastId = useRef(null)
-  const [currPage, setCurrPage] = useState(page)
-  const maxPage = useMemo(() => Math.ceil(data.length / 5), [data])
-  const pageData = useMemo(() => {
-    return data.slice((currPage - 1) * 5, currPage * 5)
-  }, [data, currPage])
-
-
+  const { loading, error, data = [] } = useFetch(`https://student-json-api.lidemy.me/posts?_sort=createdAt&_order=desc`)
+  const { pageData, PaginationComponent } = usePagination(data, defaultPage)
 
   useEffect(() => {
     loading ? (toastId.current = toast.loading('loading...')) : toast.dismiss(toastId.current)
@@ -150,7 +144,7 @@ const FetchPosts = ({ page = 1 }) => {
   return (
     <>
       {data && pageData.map(post => <Post key={post.id} post={post} userList={userList} />)}
-      {data && <Pagination count={maxPage} currPage={currPage} setCurrPage={setCurrPage} />}
+      {data && <PaginationComponent />}
     </>
   )
 }

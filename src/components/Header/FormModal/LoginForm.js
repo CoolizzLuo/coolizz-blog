@@ -7,7 +7,6 @@ import * as yup from "yup"
 import { toast } from 'react-toastify'
 
 import axios from '../../../commons/axios'
-import useFetchData from '../../../hooks/useFetchData'
 import { AuthContext } from '../../../context'
 import { setAuthToken } from '../../../utils'
 import {
