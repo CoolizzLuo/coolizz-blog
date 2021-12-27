@@ -114,7 +114,7 @@ const Post = ({ post, userList }) => {
           </PostAuthor>
           <PostTag>
             <FontAwesomeIcon icon={faTags} />
-            Test
+            Lidemy Student
           </PostTag>
         </PostInfo>
       </PostHead>
@@ -143,8 +143,8 @@ const FetchPosts = ({ defaultPage = 1 }) => {
 
   return (
     <>
-      {data && pageData.map(post => <Post key={post.id} post={post} userList={userList} />)}
-      {data && <PaginationComponent />}
+      {pageData.map(post => <Post key={post.id} post={post} userList={userList} />)}
+      <PaginationComponent />
     </>
   )
 }

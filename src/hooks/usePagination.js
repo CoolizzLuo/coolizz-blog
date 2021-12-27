@@ -10,9 +10,14 @@ const usePagination = (data, initialPage = 1) => {
     return data.slice((currPage - 1) * 5, currPage * 5)
   }, [data, currPage])
 
-  const PaginationComponent = useCallback(() => {
-    return <Pagination count={maxPage} currPage={currPage} setCurrPage={setCurrPage} />
-  }, [maxPage, currPage])
+  const PaginationComponent = useCallback(() => (
+    <Pagination
+      count={maxPage}
+      currPage={currPage}
+      setCurrPage={setCurrPage}
+      siblingCount={0}
+    />
+  ), [maxPage, currPage])
 
   return { currPage, maxPage, pageData, PaginationComponent }
 }
