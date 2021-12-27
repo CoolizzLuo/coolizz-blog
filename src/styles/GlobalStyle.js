@@ -38,7 +38,7 @@ const GlobalStyles = css`
   }
 
   body {
-    margin: 32px 0 0;
+    margin: .5rem 0 0;
   }
 
   a {

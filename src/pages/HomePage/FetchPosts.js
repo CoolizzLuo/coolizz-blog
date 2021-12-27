@@ -12,7 +12,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 
 import useFetch from '../../hooks/useFetch'
 import { AuthContext } from '../../context'
-import PageBar from '../../components/PageBar'
+import Pagination from '../../components/Pagination'
 
 
 library.add(fab)
@@ -125,12 +125,12 @@ const Post = ({ post, userList }) => {
   )
 }
 
-const FetchPosts = () => {
+const FetchPosts = ({ page = 1 }) => {
   const { userList } = useContext(AuthContext)
   const { loading, error, data = [] } = useFetch(`https://student-json-api.lidemy.me/posts?_sort=createdAt&_order=desc`)
   // const { loading, error, data } = useFetch(`https://student-json-api.lidemy.me/posts?_page=${page}&_limit=5&_sort=createdAt&_order=desc`)
   const toastId = useRef(null)
-  const [currPage, setCurrPage] = useState(1)
+  const [currPage, setCurrPage] = useState(page)
   const maxPage = useMemo(() => Math.ceil(data.length / 5), [data])
   const pageData = useMemo(() => {
     return data.slice((currPage - 1) * 5, currPage * 5)
@@ -150,7 +150,7 @@ const FetchPosts = () => {
   return (
     <>
       {data && pageData.map(post => <Post key={post.id} post={post} userList={userList} />)}
-      <PageBar count={10} currPage={currPage} setCurrPage={setCurrPage} />
+      {data && <Pagination count={maxPage} currPage={currPage} setCurrPage={setCurrPage} />}
     </>
   )
 }
