@@ -47,7 +47,7 @@ const GlobalStyles = css`
     text-decoration: none;
   }
 
-  input {
+  input, textarea {
     font-family: "Cyber", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
   }
