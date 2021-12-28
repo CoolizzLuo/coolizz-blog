@@ -1,25 +1,14 @@
-import { useState, useMemo, useCallback } from 'react'
-
-import Pagination from '../components/Pagination'
+import { useState, useMemo } from 'react'
 
 
-const usePagination = (data, initialPage = 1) => {
+const usePagination = (data, initialPage = 1, initialPageSize = 5) => {
   const [currPage, setCurrPage] = useState(initialPage)
-  const maxPage = useMemo(() => Math.ceil(data.length / 5), [data])
+  const totalPage = useMemo(() => Math.ceil(data.length / initialPageSize), [data, initialPageSize])
   const pageData = useMemo(() => {
-    return data.slice((currPage - 1) * 5, currPage * 5)
-  }, [data, currPage])
+    return data.slice((currPage - 1) * initialPageSize, currPage * initialPageSize)
+  }, [data, currPage, initialPageSize])
 
-  const PaginationComponent = useCallback(() => (
-    <Pagination
-      pageSize={maxPage}
-      currentPage={currPage}
-      setCurrentPage={setCurrPage}
-      siblingCount={0}
-    />
-  ), [maxPage, currPage])
-
-  return { currPage, maxPage, pageData, PaginationComponent }
+  return { currPage, setCurrPage, totalPage, pageData }
 }
 
 export default usePagination

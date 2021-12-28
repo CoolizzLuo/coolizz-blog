@@ -1,8 +1,8 @@
-import { useContext, useState, useEffect, useMemo, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
@@ -12,8 +12,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 
 import useFetch from '../../hooks/useFetch'
 import usePagination from '../../hooks/usePagination'
-import { AuthContext } from '../../context'
 import Pagination from '../../components/Pagination'
+import { AuthContext } from '../../context'
 
 
 library.add(fab)
@@ -130,7 +130,7 @@ const FetchPosts = ({ defaultPage = 1 }) => {
   const { userList } = useContext(AuthContext)
   const toastId = useRef(null)
   const { loading, error, data = [] } = useFetch(`https://student-json-api.lidemy.me/posts?_sort=createdAt&_order=desc`)
-  const { pageData, PaginationComponent } = usePagination(data, defaultPage)
+  const { currPage, setCurrPage, totalPage, pageData } = usePagination(data, defaultPage)
 
   useEffect(() => {
     loading ? (toastId.current = toast.loading('loading...')) : toast.dismiss(toastId.current)
@@ -142,9 +142,15 @@ const FetchPosts = ({ defaultPage = 1 }) => {
   }, [error])
 
   return (
+    !loading &&
     <>
       {pageData.map(post => <Post key={post.id} post={post} userList={userList} />)}
-      <PaginationComponent />
+      <Pagination
+        totalPage={totalPage}
+        currentPage={currPage}
+        setCurrentPage={setCurrPage}
+        siblingCount={0}
+      />
     </>
   )
 }

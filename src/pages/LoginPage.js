@@ -69,7 +69,7 @@ const Button = styled.button`
 
 const LoginPage = ({ history }) => {
   const { register, handleSubmit, formState: { errors } } = useForm()
-  const { user, setUser } = useContext(AuthContext)
+  const { setUser } = useContext(AuthContext)
 
   const onSubmit = async (data) => {
     const { username, password } = data

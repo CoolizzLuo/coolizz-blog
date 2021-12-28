@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
 import useFetch from '../../hooks/useFetch'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 
 const PostContainer = styled.div`

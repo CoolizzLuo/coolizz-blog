@@ -9,7 +9,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 
 library.add(fab)
 
-const PageUi = styled.ul`
+const PageUl = styled.ul`
   display: flex;
   justify-content: center;
   margin: .4rem 0;
@@ -65,22 +65,21 @@ const PageLi = styled(Li)`
 `
 
 const Pagination = ({
-  pageSize,
+  totalPage,
   currentPage = 1,
   setCurrentPage,
   siblingCount = 0,
   boundaryCount = 1
 }) => {
-  const pageNumArray = Array.from({ length: pageSize }, (_, i) => i + 1)
+  const pageNumArray = Array.from({ length: totalPage }, (_, i) => i + 1)
   const offsetArray = (() => {
     if (currentPage < 6) return pageNumArray.slice(0, 6)
-    else if (currentPage > pageSize - 5) return pageNumArray.slice(pageSize - 6)
+    else if (currentPage > totalPage - 5) return pageNumArray.slice(totalPage - 6)
     else return pageNumArray.slice(currentPage - 2, currentPage + 1)
   })()
 
   const PageLiItem = ({ value }) => (
     <PageLi
-      key={'page-' + value}
       $active={currentPage === value}
       onClick={() => setCurrentPage(value)}>
       {value}
@@ -88,35 +87,35 @@ const Pagination = ({
   )
 
   return (
-    <PageUi>
+    <PageUl>
       <PageLi $hide={currentPage <= 1} onClick={() => setCurrentPage(value => --value)}>
         <FontAwesomeIcon icon={faLeft} />
       </PageLi>
-      {pageSize < 11 && pageNumArray.map((i) => <PageLiItem value={i} />)}
-      {pageSize >= 11 && (
+      {totalPage < 11 && pageNumArray.map((i) => <PageLiItem key={`pageLi-${i}`} value={i} />)}
+      {totalPage >= 11 && (
         <>
           {
             currentPage > 5 && (<>
-              <PageLiItem value={1} />
-              <PageLiItem value={2} />
+              <PageLiItem key={`pageLi-1`} value={1} />
+              <PageLiItem key={`pageLi-2`} value={2} />
               <Li><FontAwesomeIcon icon={faEtc} /></Li>
             </>)
           }
-          {offsetArray.map((i) => <PageLiItem value={i} />)}
+          {offsetArray.map((i) => <PageLiItem key={`pageLi-${i}`} value={i} />)}
           {
-            currentPage <= pageSize - 5 && (<>
+            currentPage <= totalPage - 5 && (<>
               <Li><FontAwesomeIcon icon={faEtc} /></Li>
-              <PageLiItem value={pageSize - 1} />
-              <PageLiItem value={pageSize} />
+              <PageLiItem key={`pageLi-${totalPage - 1}`} value={totalPage - 1} />
+              <PageLiItem key={`pageLi-${totalPage}`} value={totalPage} />
             </>)
           }
 
         </>
       )}
-      <PageLi $hide={currentPage >= pageSize} onClick={() => setCurrentPage(value => ++value)}>
+      <PageLi $hide={currentPage >= totalPage} onClick={() => setCurrentPage(value => ++value)}>
         <FontAwesomeIcon icon={faRight} />
       </PageLi>
-    </PageUi>
+    </PageUl>
   )
 }
 

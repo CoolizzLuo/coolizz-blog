@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useParams } from 'react-router'
 
 import styled from '@emotion/styled'
 
-import { getPosts } from '../../WebAPI'
 import FetchPosts from './FetchPosts'
 
 
@@ -12,15 +11,11 @@ const Wrapper = styled.div`
 `
 
 const HomePage = () => {
-  const [posts, setPosts] = useState([])
-
-  useEffect(() => {
-    // getPosts().then(setPosts)
-  }, []);
+  const { page } = useParams()
 
   return (
     <Wrapper>
-      <FetchPosts />
+      <FetchPosts defaultPage={page} />
     </Wrapper>
   )
 }
