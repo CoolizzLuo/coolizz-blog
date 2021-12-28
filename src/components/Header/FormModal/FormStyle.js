@@ -97,8 +97,8 @@ const SubmitBtn = styled.button`
   padding: .3rem 1rem;
   width: 100%;
   margin-top: .5rem;
-  background-color: #a29bfe;
-  /* background-color: #1877f2; */
+  /* background-color: #a29bfe; */
+  background-color: #428bca;
   border-color: transparent;
   border-radius: 4px;
   box-shadow: 2px 2px 2px #666;
@@ -125,8 +125,8 @@ const Note = styled.div`
   button {
     position: relative;
     font-weight: 500;
-    color: #a29bfe;
-    /* color: #1877f2; */
+    /* color: #a29bfe; */
+    color: #428bca;
     background: transparent;
     margin-left: 10px;
     border: none;
@@ -140,7 +140,8 @@ const Note = styled.div`
       left: 0;
       width: 0%;
       height: 2px;
-      background: #a29bfe;
+      /* background: #a29bfe; */
+      background: #428bca;
       transition: width 1s .2s;
     }
     &:hover::after {

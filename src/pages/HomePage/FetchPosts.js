@@ -1,4 +1,5 @@
 import { useContext, useEffect, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
@@ -128,6 +129,7 @@ const Post = ({ post, userList }) => {
 
 const FetchPosts = ({ defaultPage = 1 }) => {
   const { userList } = useContext(AuthContext)
+  const history = useHistory()
   const toastId = useRef(null)
   const { loading, error, data = [] } = useFetch(`https://student-json-api.lidemy.me/posts?_sort=createdAt&_order=desc`)
   const { currPage, setCurrPage, totalPage, pageData } = usePagination(data, defaultPage)
@@ -140,6 +142,16 @@ const FetchPosts = ({ defaultPage = 1 }) => {
   useEffect(() => {
     if (error) toast.error('Network error')
   }, [error])
+
+  useEffect(() => history.push('/' + currPage), [history, currPage])
+
+  useEffect(() => {
+    if (!totalPage) return
+    if (defaultPage > totalPage || defaultPage < 1) {
+      toast.error('Maximum number of pages exceeded')
+      history.push('/1')
+    }
+  }, [defaultPage, totalPage, history])
 
   return (
     !loading &&

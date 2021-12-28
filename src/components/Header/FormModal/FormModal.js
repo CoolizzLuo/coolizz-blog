@@ -42,7 +42,8 @@ const BackBtn = styled.div`
     left: 0;
     width: 0%;
     height: 2px;
-    background: #a29bfe;
+    /* background: #a29bfe; */
+    background: #428bca;
     transition: width 1s .2s;
   }
   &:hover {
