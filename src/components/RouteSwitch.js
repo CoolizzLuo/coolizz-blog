@@ -6,7 +6,6 @@ import HomePage from '../pages/HomePage'
 import AboutPage from '../pages/AboutPage'
 import NewPostPage from '../pages/NewPostPage'
 import PostPage from '../pages/PostPage'
-import LoginPage from '../pages/LoginPage'
 import NotFoundPage from '../pages/NotFoundPage'
 
 
@@ -16,8 +15,7 @@ const RouteSwitch = () => (
     <Route path='/:page([1-9]|[1-9]*[0-9]+)' component={HomePage} />
     <Route path='/about' component={AboutPage} />
     <Route path='/new_post' component={NewPostPage} />
-    <Route path='/post/:id' component={PostPage} />
-    <Route path='/login' component={LoginPage} />
+    <Route path='/post/:id([1-9]|[1-9]*[0-9]+)' component={PostPage} />
     <Route path='*' component={NotFoundPage} />
   </Switch>
 )

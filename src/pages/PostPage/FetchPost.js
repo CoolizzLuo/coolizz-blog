@@ -1,67 +1,62 @@
-import { useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 
-import styled from '@emotion/styled'
-import { Link } from 'react-router-dom'
-import useFetch from '../../hooks/useFetch'
 import { toast } from 'react-toastify'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
+import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { faTags } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+import useFetch from '../../hooks/useFetch'
+import { AuthContext } from '../../context'
+import {
+  PostContainer,
+  PostHead,
+  PostBody,
+  PostTitle,
+  PostInfo,
+  PostAuthor,
+  PostDate,
+  PostTag,
+} from '../../styles/PostStyle'
 
 
-const PostContainer = styled.div`
-  padding: 1.4rem .6rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
+library.add(fab)
 
-  & + & {
-    border-top: 1px solid rgba(0, 12, 34, 0.2);
-  }
-`
-
-const PostTitle = styled(Link)`
-  font-size: 1rem;
-  font-weight: 700;
-  color: #d04444;
-  text-decoration: none;
-  overflow: hidden;
-`
-
-const PostBody = styled.div`
-  font-size: .8rem;
-  margin: 1rem 0;
-`
-
-const PostInfo = styled.div`
-  display: flex;
-  font-size: .7rem;
-`
-
-const PostAuthor = styled.div`
-  color: #d04444;
-  font-weight: 500;
-`
-
-const PostDate = styled.div`
-  color: rgba(0, 0, 0, 0.8);
-  margin-left: .2rem;
-`
-
-const Post = ({ post }) => {
+const Post = ({ post, userList }) => {
   const { id, title, body, userId, createdAt } = post
-  const postBody = body.split('\n').slice(0, 2).join(' ')
+  const timeParser = (time) => new Date(time).toLocaleString('zh-TW', { hour12: false })
+  const userParser = (userId) => userList.find((user) => user.id === userId)
+
   return (
     <PostContainer>
-      <PostTitle to={`/post/${id}`}>{title}</PostTitle>
-      <PostBody>{postBody.length > 30 ? `${postBody.substr(0, 30)}...` : postBody}</PostBody>
-      <PostInfo>
-        <PostAuthor>{userId}</PostAuthor>
-        <PostDate>{' on ' + new Date(createdAt).toLocaleDateString()}</PostDate>
-      </PostInfo>
+      <PostHead>
+        <PostTitle to={`/post/${id}`}>{title}</PostTitle>
+        <PostInfo>
+          <PostDate>
+            <FontAwesomeIcon icon={faCalendarAlt} />
+            {timeParser(createdAt)}
+          </PostDate>
+          <PostAuthor>
+            <FontAwesomeIcon icon={faUserAlt} />
+            {userParser(userId)?.username}
+          </PostAuthor>
+          <PostTag>
+            <FontAwesomeIcon icon={faTags} />
+            Lidemy Student
+          </PostTag>
+        </PostInfo>
+      </PostHead>
+      <PostBody>
+        {body}
+      </PostBody>
     </PostContainer>
   )
 }
 
 const FetchPost = ({ id }) => {
+  const { userList } = useContext(AuthContext)
   const { loading, error, data } = useFetch(`https://student-json-api.lidemy.me/posts/${id}`)
   const toastId = useRef(null)
 
@@ -75,11 +70,7 @@ const FetchPost = ({ id }) => {
   }, [error])
 
   return (
-    <div>
-      {console.log(data)}
-      <h2>{data?.title}</h2>
-      <p>{data?.body}</p>
-    </div>
+    !loading && <Post post={data} userList={userList} />
   )
 }
 

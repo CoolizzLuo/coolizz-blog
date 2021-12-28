@@ -84,8 +84,8 @@ const Header = () => {
       {isModalOpen && <FormModal handleToggle={toggleModal} />}
       <NavbarList>
         <Nav exact to="/">Home</Nav>
+        <Nav to="/about">About</Nav>
         {user && <Nav to="/new_post">Post</Nav>}
-        <Nav to="/about">About me</Nav>
       </NavbarList>
       <div>
         {user?.username && <Span>{'Hi ' + user.username}</Span>}
