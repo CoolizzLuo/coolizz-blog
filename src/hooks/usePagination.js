@@ -12,9 +12,9 @@ const usePagination = (data, initialPage = 1) => {
 
   const PaginationComponent = useCallback(() => (
     <Pagination
-      count={maxPage}
-      currPage={currPage}
-      setCurrPage={setCurrPage}
+      pageSize={maxPage}
+      currentPage={currPage}
+      setCurrentPage={setCurrPage}
       siblingCount={0}
     />
   ), [maxPage, currPage])

@@ -65,42 +65,55 @@ const PageLi = styled(Li)`
 `
 
 const Pagination = ({
-  count,
-  currPage = 1,
-  setCurrPage,
+  pageSize,
+  currentPage = 1,
+  setCurrentPage,
   siblingCount = 0,
   boundaryCount = 1
 }) => {
-  const pageNumArray = Array.from({ length: count }, (_, i) => i + 1)
+  const pageNumArray = Array.from({ length: pageSize }, (_, i) => i + 1)
+  const offsetArray = (() => {
+    if (currentPage < 6) return pageNumArray.slice(0, 6)
+    else if (currentPage > pageSize - 5) return pageNumArray.slice(pageSize - 6)
+    else return pageNumArray.slice(currentPage - 2, currentPage + 1)
+  })()
+
   const PageLiItem = ({ value }) => (
     <PageLi
       key={'page-' + value}
-      $active={currPage === value}
-      onClick={() => setCurrPage(value)}>
+      $active={currentPage === value}
+      onClick={() => setCurrentPage(value)}>
       {value}
     </PageLi>
   )
 
   return (
     <PageUi>
-      <PageLi $hide={currPage <= 1} onClick={() => setCurrPage(value => --value)}>
+      <PageLi $hide={currentPage <= 1} onClick={() => setCurrentPage(value => --value)}>
         <FontAwesomeIcon icon={faLeft} />
       </PageLi>
-      {count < 11 && pageNumArray.map((i) => <PageLiItem value={i} />)}
-      {count >= 11 && (
+      {pageSize < 11 && pageNumArray.map((i) => <PageLiItem value={i} />)}
+      {pageSize >= 11 && (
         <>
-          <PageLiItem value={1} />
-          <PageLiItem value={2} />
-          {!(currPage < 5) && <Li><FontAwesomeIcon icon={faEtc} /></Li>}
-          {currPage < 5 && pageNumArray.slice(2, 5).map((i) => <PageLiItem value={i} />)}
-          {currPage > count - 5 && pageNumArray.slice(count - 5, count).map((i) => <PageLiItem value={i} />)}
-          {pageNumArray.slice(currPage - 2 > 0 ? currPage - 2 : 0, currPage + 1).map((i) => <PageLiItem value={i} />)}
-          {!(currPage > count - 5) && <Li><FontAwesomeIcon icon={faEtc} /></Li>}
-          <PageLiItem value={count - 1} />
-          <PageLiItem value={count} />
+          {
+            currentPage > 5 && (<>
+              <PageLiItem value={1} />
+              <PageLiItem value={2} />
+              <Li><FontAwesomeIcon icon={faEtc} /></Li>
+            </>)
+          }
+          {offsetArray.map((i) => <PageLiItem value={i} />)}
+          {
+            currentPage <= pageSize - 5 && (<>
+              <Li><FontAwesomeIcon icon={faEtc} /></Li>
+              <PageLiItem value={pageSize - 1} />
+              <PageLiItem value={pageSize} />
+            </>)
+          }
+
         </>
       )}
-      <PageLi $hide={currPage >= count} onClick={() => setCurrPage(value => ++value)}>
+      <PageLi $hide={currentPage >= pageSize} onClick={() => setCurrentPage(value => ++value)}>
         <FontAwesomeIcon icon={faRight} />
       </PageLi>
     </PageUi>
