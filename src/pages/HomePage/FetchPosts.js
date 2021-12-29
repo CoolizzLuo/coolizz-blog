@@ -79,15 +79,15 @@ const FetchPosts = ({ defaultPage = 1 }) => {
     if (error) toast.error('Network error')
   }, [error])
 
-  useEffect(() => history.push('/' + currPage), [history, currPage])
-
   useEffect(() => {
     if (!totalPage) return
     if (defaultPage > totalPage || defaultPage < 1) {
-      toast.error('Maximum number of pages exceeded')
-      history.push('/1')
+      toast.error('Maximum number of pages exceeded \n will redirect to page 1')
+      setCurrPage(1)
     }
-  }, [defaultPage, totalPage, history])
+  }, [defaultPage, totalPage, setCurrPage])
+
+  useEffect(() => history.push('/?page=' + currPage), [history, currPage])
 
   return (
     !loading &&
