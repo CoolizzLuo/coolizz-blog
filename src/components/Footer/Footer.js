@@ -5,8 +5,9 @@ const FooterContainer = styled.footer`
   font-family: "Cyber", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
   font-size: .8rem;
-  padding: 16px 0 16px;
+  padding: 16px 0 0;
   text-align: center;
+  user-select: none;
   
   a {
     font-family: "Cyber", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

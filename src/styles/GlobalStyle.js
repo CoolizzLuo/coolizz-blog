@@ -17,6 +17,8 @@ const GlobalStyles = css`
     sans-serif;
     box-sizing: border-box;
     color: #333;
+    letter-spacing: 1px;
+    line-height: 1.4;
   }
   
   ::-webkit-scrollbar {
@@ -38,14 +40,14 @@ const GlobalStyles = css`
   }
 
   body {
-    margin: 32px 0 0;
+    margin: .5rem 0 0;
   }
 
   a {
     text-decoration: none;
   }
 
-  input {
+  input, textarea {
     font-family: "Cyber", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
   }

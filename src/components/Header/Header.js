@@ -54,8 +54,9 @@ const Span = styled.span`
 const UserBtn = styled.button`
   font-size: .9rem;
   padding: 2px 8px;
-  background-color: #a29bfe;
+  /* background-color: #a29bfe; */
   /* background-color: #1877f2; */
+  background-color: #428bca;
   border-color: transparent;
   border-radius: 4px;
   box-shadow: 2px 2px 2px #666;
@@ -84,7 +85,8 @@ const Header = () => {
       <NavbarList>
         <Nav exact to="/">Home</Nav>
         {user && <Nav to="/new_post">Post</Nav>}
-        <Nav to="/about">About me</Nav>
+        {user && <Nav to="/console">Console</Nav>}
+        <Nav to="/about">About</Nav>
       </NavbarList>
       <div>
         {user?.username && <Span>{'Hi ' + user.username}</Span>}

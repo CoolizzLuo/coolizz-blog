@@ -1,7 +1,7 @@
 import { useState, useLayoutEffect } from 'react'
 
 import styled from '@emotion/styled'
-import { HashRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -19,16 +19,17 @@ const Layout = styled.div`
   align-items: center;
   margin: 0 auto;
   padding: 0 30px;
-  max-width: 768px;
+  max-width: 1120px;
 `
 
 const Container = styled.div`
   text-align: center;
   width: 100%;
   /* height: calc(100vh - 204px); */
-  height: calc(100vh - 64px - 24px - 53px );
-  overflow: auto;
+  height: calc(100vh - 48px - 53px - .5rem);
+  overflow: overlay;
   margin: 24px 0 0;
+  padding: 0 1rem;
   /* padding: 24px 0 0; */
 `
 

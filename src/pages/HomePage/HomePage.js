@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useMemo } from 'react'
+import { useLocation, useParams } from 'react-router'
 
 import styled from '@emotion/styled'
 
-import { getPosts } from '../../WebAPI'
 import FetchPosts from './FetchPosts'
 
 
@@ -11,16 +11,16 @@ const Wrapper = styled.div`
   padding: 0 .5rem;
 `
 
-const HomePage = () => {
-  const [posts, setPosts] = useState([])
 
-  useEffect(() => {
-    // getPosts().then(setPosts)
-  }, []);
+const HomePage = () => {
+  const { search } = useLocation()
+  const query = new URLSearchParams(search)
+  const page = query.get('page') || 1
+
 
   return (
     <Wrapper>
-      <FetchPosts />
+      <FetchPosts defaultPage={page} />
     </Wrapper>
   )
 }

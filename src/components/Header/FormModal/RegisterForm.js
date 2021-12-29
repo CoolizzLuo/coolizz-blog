@@ -21,7 +21,7 @@ import {
   ErrorMsg,
   SubmitBtn,
   Note
-} from './FormStyle'
+} from '../../../styles/FormStyle'
 
 
 const schema = yup.object({
