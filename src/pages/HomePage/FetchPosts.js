@@ -84,10 +84,10 @@ const FetchPosts = ({ defaultPage = 1 }) => {
   useEffect(() => {
     if (!totalPage) return
     if (defaultPage > totalPage || defaultPage < 1) {
-      toast.error('Maximum number of pages exceeded')
-      history.push('/1')
+      toast.error('Maximum number of pages exceeded', { position: "top-right", autoClose: 2000, hideProgressBar: true })
+      setCurrPage(1)
     }
-  }, [defaultPage, totalPage, history])
+  }, [defaultPage, totalPage, setCurrPage])
 
   return (
     !loading &&
