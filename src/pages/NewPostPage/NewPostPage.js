@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 
+import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
@@ -18,12 +19,11 @@ const Wrapper = styled.div`
 `
 
 const H2 = styled.h2`
-  margin: 2rem 0 0;
   text-align: center;
 `
 
 const Form = styled.form`
-  margin: 1.5rem 0 1rem;
+  margin: 1rem 0 0;
 `
 
 const Label = styled.label`
@@ -35,9 +35,8 @@ const Label = styled.label`
 const Input = styled.input`
   min-width: 100%;
   max-width: 100%;
-  margin: .2rem 0 1rem;
   padding: .6rem;
-  margin: .8rem 0 2rem;
+  margin: .8rem 0 1rem;
   font-size: 1rem;
   background: #ddd;
   border: none;
@@ -49,9 +48,9 @@ const Input = styled.input`
 const Textarea = styled.textarea`
   min-width: 100%;
   max-width: 100%;
-  min-height: 240px;
+  min-height: 200px;
   padding: .6rem;
-  margin: .8rem 0 2rem;
+  margin: .8rem 0 1rem;
   font-size: 1rem;
   background: #ddd;
   border: none;
@@ -84,31 +83,34 @@ const SubmitBtn = styled.button`
 
 const schema = yup.object({
   title: yup.string().required(),
-  content: yup.string().required(),
+  body: yup.string().required(),
 }).required()
 
 
 const NewPostPage = () => {
+  const history = useHistory()
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   })
 
   const onSubmit = async (data) => {
-    const { title, content } = data
+    const { title, body } = data
 
     toast.promise(
-      axios.post('/login', { title, content }),
+      axios.post('/posts', { title, body }),
       {
         pending: 'Loading...',
         success: {
           render({ data }) {
-            if (data.data?.ok !== 1) return data.data.message
+            if (!data.data?.id) return data.data.message
+            history.push('/')
             return 'Post Successful !'
           }
         },
         error: {
           render({ data }) {
             reset()
+            history.push('/')
             return 'Post Fail !'
           }
         }
@@ -133,8 +135,8 @@ const NewPostPage = () => {
           Content:
           <Textarea
             placeholder='Please input content...'
-            $danger={errors.content}
-            {...register("content")}
+            $danger={errors.body}
+            {...register("body")}
           >
           </Textarea>
         </Label>
