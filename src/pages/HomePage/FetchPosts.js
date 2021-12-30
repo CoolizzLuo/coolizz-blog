@@ -79,8 +79,6 @@ const FetchPosts = ({ defaultPage = 1 }) => {
     if (error) toast.error('Network error')
   }, [error])
 
-  useEffect(() => history.push('/' + currPage), [history, currPage])
-
   useEffect(() => {
     if (!totalPage) return
     if (defaultPage > totalPage || defaultPage < 1) {
@@ -88,6 +86,8 @@ const FetchPosts = ({ defaultPage = 1 }) => {
       setCurrPage(1)
     }
   }, [defaultPage, totalPage, setCurrPage])
+
+  useEffect(() => history.push('/?page=' + currPage), [history, currPage])
 
   return (
     !loading &&

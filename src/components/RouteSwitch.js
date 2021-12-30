@@ -13,7 +13,7 @@ import NotFoundPage from '../pages/NotFoundPage'
 const RouteSwitch = () => (
   <Switch>
     <Route path='/' exact component={HomePage} />
-    <Route path='/:page([1-9]|[1-9]*[0-9]+)' component={HomePage} />
+    {/* <Route path='/:page([1-9]|[1-9]*[0-9]+)' component={HomePage} /> */}
     <Route path='/about' component={AboutPage} />
     <Route path='/new_post' component={NewPostPage} />
     <Route path='/post/:id([1-9]|[1-9]*[0-9]+)' component={PostPage} />

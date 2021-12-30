@@ -1,4 +1,5 @@
-import { useParams } from 'react-router'
+import { useMemo } from 'react'
+import { useLocation, useParams } from 'react-router'
 
 import styled from '@emotion/styled'
 
@@ -10,8 +11,12 @@ const Wrapper = styled.div`
   padding: 0 .5rem;
 `
 
+
 const HomePage = () => {
-  const { page } = useParams()
+  const { search } = useLocation()
+  const query = new URLSearchParams(search)
+  const page = query.get('page') || 1
+
 
   return (
     <Wrapper>
