@@ -15,9 +15,9 @@ const Wrapper = styled.div`
   margin: 2rem auto 0;
   padding: 1rem;
   max-width: 760px;
-  border: 1px solid #111;
+  border: 1px solid #ccc;
   border-radius: 12px;
-  box-shadow: rgb(0 0 0 / 20%) 0px 1px 3px 1px, rgb(0 0 0 / 10%) 0px 1px 5px 1px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 1px, rgb(0 0 0 / 10%) 0px 1px 5px 1px;
 `
 
 const H2 = styled.h2`
@@ -41,8 +41,8 @@ const Input = styled.input`
   margin: .8rem 0 1rem;
   font-size: 1rem;
   background: #fff;
-  border: none;
-  border-radius: 12px;
+  border: 1px solid #c4c4c4;
+  border-radius: 2px;
   outline: none;
 `
 
@@ -58,6 +58,10 @@ const Textarea = styled.textarea`
   border: none;
   border-radius: 12px;
   outline: none;
+`
+
+const PostCKEditor = styled(CKEditor)`
+  min-height: 200px;
 `
 
 const SubmitBtn = styled.button`
@@ -142,7 +146,7 @@ const NewPostPage = () => {
           >
           </Textarea>
         </Label> */}
-        <CKEditor
+        <PostCKEditor
           editor={ClassicEditor}
           data="<p>Hello from CKEditor 5!</p>"
           onReady={editor => console.log('Editor is ready to use!', editor)}

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
+import styled from '@emotion/styled/macro'
 import { toast } from 'react-toastify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -28,6 +29,17 @@ import {
 
 library.add(fab)
 
+const PostBodyEllipsis = styled(PostBody)`
+  width: 100%;  
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  box-orient: vertical;
+  -webkit-box-orient: vertical;
+`
 
 const Post = ({ post, userList }) => {
   const { id, title, body, userId, createdAt } = post
@@ -55,9 +67,10 @@ const Post = ({ post, userList }) => {
           </PostTag>
         </PostInfo>
       </PostHead>
-      <PostBody>
-        {postBody.length > 30 ? `${postBody.substr(0, 30)}...` : postBody}
-      </PostBody>
+      <PostBodyEllipsis>
+        {/* {postBody.length > 30 ? `${postBody.substr(0, 30)}...` : postBody} */}
+        {postBody}
+      </PostBodyEllipsis>
       <ReadMoreBtn to={`/post/${id}`}>Read More</ReadMoreBtn>
     </PostContainer>
   )

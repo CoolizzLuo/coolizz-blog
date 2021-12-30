@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const PostContainer = styled.article`
   position: relative;
   background: #fff;
-  padding: 1.4rem 1.6rem;
+  padding: 1.2rem 1.6rem;
   margin: 2rem 0;
   display: flex;
   flex-direction: column;
@@ -71,9 +71,14 @@ const PostTag = styled.span`
 const ReadMoreBtn = styled(Link)`
   position: absolute;
   right: 1.6rem;
-  bottom: 1.4rem;
+  bottom: .8rem;
   font-size: .6rem;
   color: #338ccc;
+
+  &:hover {
+    font-weight: 700;
+    box-shadow: ;
+  }
 `
 
 export {
