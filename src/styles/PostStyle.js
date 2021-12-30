@@ -6,13 +6,14 @@ const PostContainer = styled.article`
   position: relative;
   background: #fff;
   padding: 1.2rem 1.6rem;
-  margin: 2rem 0;
+  /* margin: 2rem 0; */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
   border-radius: 6px;
   box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+  overflow: auto;
 
   /* & + & {
     border-top: 1px solid rgba(0, 12, 34, 0.2);

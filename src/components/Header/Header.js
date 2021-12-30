@@ -85,7 +85,7 @@ const Header = () => {
       <NavbarList>
         <Nav exact to="/">Home</Nav>
         {user && <Nav to="/new_post">Post</Nav>}
-        {user && <Nav to="/console">Console</Nav>}
+        {user && <Nav to="/console">Admin</Nav>}
         <Nav to="/about">About</Nav>
       </NavbarList>
       <div>

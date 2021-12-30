@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import styled from '@emotion/styled'
 
 import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -89,18 +90,18 @@ const SubmitBtn = styled.button`
 
 const schema = yup.object({
   title: yup.string().required(),
-  body: yup.string().required(),
 }).required()
 
 
 const NewPostPage = () => {
+  const [body, setBody] = useState('')
   const history = useHistory()
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   })
 
   const onSubmit = async (data) => {
-    const { title, body } = data
+    const { title } = data
 
     toast.promise(
       axios.post('/posts', { title, body }),
@@ -153,6 +154,7 @@ const NewPostPage = () => {
           onChange={(event, editor) => {
             const data = editor.getData();
             console.log({ event, editor, data });
+            setBody(editor.getData())
           }}
           onBlur={(event, editor) => console.log('Blur.', editor)}
           onFocus={(event, editor) => console.log('Focus.', editor)}

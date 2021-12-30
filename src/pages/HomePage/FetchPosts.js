@@ -15,7 +15,7 @@ import usePagination from '../../hooks/usePagination'
 import Pagination from '../../components/Pagination'
 import { AuthContext } from '../../context'
 import {
-  PostContainer,
+  PostContainer as Container,
   PostHead,
   PostBody,
   PostTitle,
@@ -28,6 +28,10 @@ import {
 
 
 library.add(fab)
+
+const PostContainer = styled(Container)`
+  margin: 2rem 0;
+`
 
 const PostBodyEllipsis = styled(PostBody)`
   width: 100%;  

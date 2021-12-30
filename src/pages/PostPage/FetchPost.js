@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef } from 'react'
 
+import styled from '@emotion/styled'
 import { toast } from 'react-toastify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -11,7 +12,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import useFetch from '../../hooks/useFetch'
 import { AuthContext } from '../../context'
 import {
-  PostContainer,
+  PostContainer as Container,
   PostHead,
   PostBody,
   PostTitle,
@@ -23,6 +24,10 @@ import {
 
 
 library.add(fab)
+
+const PostContainer = styled(Container)`
+  margin: 2rem 0 1rem;
+`
 
 const Post = ({ post, userList }) => {
   const { id, title, body, userId, createdAt } = post
