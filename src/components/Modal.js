@@ -8,10 +8,9 @@ const Wrapper = styled.div`
   align-items: flex-start;
   inset: 0;
   background: rgba(0, 0, 0, .5);
+  backdrop-filter: blur(2px);
   transition: all .2s;
   z-index: 99;
-  user-select: none;
-  animation: zoom-in 1s;
 `
 
 const Modal = ({ children }) => (

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, memo } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import styled from '@emotion/styled/macro'
@@ -55,7 +55,7 @@ const Post = ({ post, userList }) => {
   return (
     <PostContainer>
       <PostHead>
-        <PostTitle to={`/post/${id}`}>{title}</PostTitle>
+        <PostTitle to={{ pathname: `/post/${id}`, state: { post } }}>{title}</PostTitle>
         <PostInfo>
           <PostDate>
             <FontAwesomeIcon icon={faCalendarAlt} />
@@ -86,6 +86,7 @@ const FetchPosts = ({ defaultPage = 1 }) => {
   const toastId = useRef(null)
   const { loading, error, data = [] } = useFetch(`https://student-json-api.lidemy.me/posts?_sort=createdAt&_order=desc`)
   const { currPage, setCurrPage, totalPage, pageData } = usePagination(data, defaultPage)
+  const PageComponents = memo(() => pageData.map(post => <Post key={post.id} post={post} userList={userList} />))
 
   useEffect(() => {
     loading ? (toastId.current = toast.loading('loading...')) : toast.dismiss(toastId.current)
@@ -109,7 +110,7 @@ const FetchPosts = ({ defaultPage = 1 }) => {
   return (
     !loading &&
     <>
-      {pageData.map(post => <Post key={post.id} post={post} userList={userList} />)}
+      <PageComponents />
       <Pagination
         totalPage={totalPage}
         currentPage={currPage}
