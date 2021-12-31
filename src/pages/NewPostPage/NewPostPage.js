@@ -16,9 +16,11 @@ const Wrapper = styled.div`
   margin: 2rem auto 0;
   padding: 1rem;
   max-width: 760px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 1px, rgb(0 0 0 / 10%) 0px 1px 5px 1px;
+  background: #fff;
+  /* border: 1px solid #ccc; */
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+  /* box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 1px, rgb(0 0 0 / 10%) 0px 1px 5px 1px; */
 `
 
 const H2 = styled.h2`
@@ -63,6 +65,7 @@ const Textarea = styled.textarea`
 
 const PostCKEditor = styled(CKEditor)`
   min-height: 200px;
+  margin: .8rem 0 1rem;
 `
 
 const SubmitBtn = styled.button`
@@ -147,6 +150,7 @@ const NewPostPage = () => {
           >
           </Textarea>
         </Label> */}
+        <Label>Content:</Label>
         <PostCKEditor
           editor={ClassicEditor}
           data="<p>Hello from CKEditor 5!</p>"

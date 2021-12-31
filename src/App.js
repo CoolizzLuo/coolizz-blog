@@ -37,6 +37,7 @@ const Container = styled.div`
 const App = () => {
   const [user, setUser] = useState(null)
   const [userList, setUserList] = useState([])
+  const [postData, setPostData] = useState([])
   const token = getAuthToken()
 
   useLayoutEffect(() => {
@@ -55,7 +56,7 @@ const App = () => {
 
 
   return (
-    <AuthContext.Provider value={{ user, setUser, userList }}>
+    <AuthContext.Provider value={{ user, setUser, userList, setUserList, postData, setPostData }}>
       <ToastContainer
         position="top-center"
         autoClose={5000}

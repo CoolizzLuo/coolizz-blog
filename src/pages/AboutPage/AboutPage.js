@@ -13,7 +13,7 @@ const AboutPage = () => {
     <Container>
       <h1>Hello</h1>
       <h3>我是 Enzo</h3>
-      <p>目前一是名系統維運工程師，興趣是 Coding</p>
+      <p>是一名系統維運工程師，興趣寫 coding</p>
       <p>年後準備轉職成軟體開發工程師</p>
       <p>這邊以後會轉型成技術部落格. 也許吧</p>
     </Container>

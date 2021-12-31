@@ -1,6 +1,3 @@
-import { useMemo } from 'react'
-import { useLocation, useParams } from 'react-router'
-
 import styled from '@emotion/styled'
 
 import FetchPosts from './FetchPosts'
@@ -12,9 +9,8 @@ const Wrapper = styled.div`
 `
 
 
-const HomePage = () => {
-  const { search } = useLocation()
-  const query = new URLSearchParams(search)
+const HomePage = ({ location }) => {
+  const query = new URLSearchParams(location.search)
   const page = query.get('page') || 1
 
 
