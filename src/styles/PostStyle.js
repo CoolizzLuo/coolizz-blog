@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom'
 const PostContainer = styled.article`
   position: relative;
   background: #fff;
-  padding: 1.4rem 1.6rem;
-  margin: 2rem 0;
+  padding: 1.2rem 1.6rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
   border-radius: 6px;
   box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+  /* box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 1px, rgb(0 0 0 / 10%) 0px 1px 5px 1px; */
+  overflow: auto;
 
   /* & + & {
     border-top: 1px solid rgba(0, 12, 34, 0.2);
@@ -71,9 +71,14 @@ const PostTag = styled.span`
 const ReadMoreBtn = styled(Link)`
   position: absolute;
   right: 1.6rem;
-  bottom: 1.4rem;
+  bottom: .8rem;
   font-size: .6rem;
   color: #338ccc;
+
+  &:hover {
+    font-weight: 700;
+    box-shadow: ;
+  }
 `
 
 export {

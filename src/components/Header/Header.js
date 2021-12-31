@@ -32,6 +32,7 @@ const Nav = styled(NavLink, {
   cursor: pointer;
   color: #999;
   text-decoration: none;
+  user-select: none;
 
   & + & {
     margin-left: 6px;
@@ -49,10 +50,12 @@ const Span = styled.span`
   font-size: 1rem;
   font-weight: 700;
   margin-right: 1rem;
+  user-select: none;
 `
 
 const UserBtn = styled.button`
-  font-size: .9rem;
+  font-size: .8rem;
+  font-weight: 700;
   padding: 2px 8px;
   /* background-color: #a29bfe; */
   /* background-color: #1877f2; */
@@ -62,6 +65,7 @@ const UserBtn = styled.button`
   box-shadow: 2px 2px 2px #666;
   color: #fff;
   cursor: pointer;
+  user-select: none;
   transition: all .3s;
 
   &:active {
@@ -85,7 +89,7 @@ const Header = () => {
       <NavbarList>
         <Nav exact to="/">Home</Nav>
         {user && <Nav to="/new_post">Post</Nav>}
-        {user && <Nav to="/console">Console</Nav>}
+        {/* {user && <Nav to="/console">Admin</Nav>} */}
         <Nav to="/about">About</Nav>
       </NavbarList>
       <div>

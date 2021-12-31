@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import styled from '@emotion/styled'
 
 import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -15,9 +16,11 @@ const Wrapper = styled.div`
   margin: 2rem auto 0;
   padding: 1rem;
   max-width: 760px;
-  border: 1px solid #111;
-  border-radius: 12px;
-  box-shadow: rgb(0 0 0 / 20%) 0px 1px 3px 1px, rgb(0 0 0 / 10%) 0px 1px 5px 1px;
+  background: #fff;
+  /* border: 1px solid #ccc; */
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+  /* box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 1px, rgb(0 0 0 / 10%) 0px 1px 5px 1px; */
 `
 
 const H2 = styled.h2`
@@ -41,8 +44,8 @@ const Input = styled.input`
   margin: .8rem 0 1rem;
   font-size: 1rem;
   background: #fff;
-  border: none;
-  border-radius: 12px;
+  border: 1px solid #c4c4c4;
+  border-radius: 2px;
   outline: none;
 `
 
@@ -58,6 +61,11 @@ const Textarea = styled.textarea`
   border: none;
   border-radius: 12px;
   outline: none;
+`
+
+const PostCKEditor = styled(CKEditor)`
+  min-height: 200px;
+  margin: .8rem 0 1rem;
 `
 
 const SubmitBtn = styled.button`
@@ -85,18 +93,18 @@ const SubmitBtn = styled.button`
 
 const schema = yup.object({
   title: yup.string().required(),
-  body: yup.string().required(),
 }).required()
 
 
 const NewPostPage = () => {
+  const [body, setBody] = useState('')
   const history = useHistory()
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   })
 
   const onSubmit = async (data) => {
-    const { title, body } = data
+    const { title } = data
 
     toast.promise(
       axios.post('/posts', { title, body }),
@@ -142,13 +150,15 @@ const NewPostPage = () => {
           >
           </Textarea>
         </Label> */}
-        <CKEditor
+        <Label>Content:</Label>
+        <PostCKEditor
           editor={ClassicEditor}
           data="<p>Hello from CKEditor 5!</p>"
           onReady={editor => console.log('Editor is ready to use!', editor)}
           onChange={(event, editor) => {
             const data = editor.getData();
             console.log({ event, editor, data });
+            setBody(editor.getData())
           }}
           onBlur={(event, editor) => console.log('Blur.', editor)}
           onFocus={(event, editor) => console.log('Focus.', editor)}
