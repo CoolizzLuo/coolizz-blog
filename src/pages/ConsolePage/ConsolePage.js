@@ -6,15 +6,18 @@ import { toast } from 'react-toastify'
 
 import useFetch from '../../hooks/useFetch'
 import { AuthContext } from '../../context'
-import { timeParser } from '../../utils'
+import { timeParser, userParser } from '../../utils'
+import axios from '../../commons/axios'
 
 
 const Table = styled.table`
+  font-size: .8rem;
   width: 100%;
   text-align: center;
+  border: 1px solid #111;
 
   tr {
-    display: flex;
+    /* display: flex; */
   }
 
   tr + tr {
@@ -22,10 +25,10 @@ const Table = styled.table`
   }
   
   th, td {
-    ${({ col }) => col && `
+    border: 1px solid #111;
+    /* ${({ col }) => col && `
       width: calc(100%/${col});
-    `}
-    
+    `} */
   }
 
   th {
@@ -37,14 +40,6 @@ const Table = styled.table`
   td {
     padding: 4px 0;
   }
-
-  th:first-type {
-    
-  }
-
-  .left {
-    text-align: left;
-  }
 `
 
 const Div = styled.div`
@@ -53,8 +48,6 @@ const Div = styled.div`
 
 
 const Post = ({ post }) => {
-
-
   return (
     <Div>
       <span>{post.title}</span>
@@ -63,11 +56,32 @@ const Post = ({ post }) => {
   )
 }
 
-const ConsolePage = ({ defaultPage = 1 }) => {
+const ConsolePage = () => {
   const { userList } = useContext(AuthContext)
   const history = useHistory()
   const toastId = useRef(null)
   const { loading, error, data = [] } = useFetch(`https://student-json-api.lidemy.me/posts?_sort=createdAt&_order=desc`)
+  const handleDeletePost = async (id) => {
+
+    toast.promise(
+      axios.delete(`/posts/${id}`),
+      {
+        pending: 'Loading...',
+        success: {
+          render({ data }) {
+            history.go(0)
+            return 'Delete Successful !'
+          }
+        },
+        error: {
+          render({ data }) {
+            return 'Delete Fail !'
+          }
+        }
+      }, { autoClose: 3000 }
+    )
+  }
+
 
   useEffect(() => {
     loading ? (toastId.current = toast.loading('loading...')) : toast.dismiss(toastId.current)
@@ -81,23 +95,27 @@ const ConsolePage = ({ defaultPage = 1 }) => {
   return (
     !loading &&
     <>
-      <Table col={4}>
+      <Table col={5}>
         <thead>
           <tr>
-            <th>文章序號</th>
+            <th>No.</th>
             <th>文章標題</th>
+            <th>作者</th>
             <th>發布日期</th>
             <th>管理</th>
           </tr>
         </thead>
         <tbody>
           {
-            data.map((post) => (
-              <tr key={post.id}>
-                <td>{post.id}</td>
-                <td className="left">{post.title}</td>
-                <td>{timeParser(post.createdAt)}</td>
-                <td><button>刪除</button></td>
+            data.map(({ id, title, userId, createdAt }) => (
+              <tr key={id}>
+                <td>{id}</td>
+                <td>{title.length < 8 ? title : `${title.substring(0, 8)}...`}</td>
+                <td>{userParser(userList, userId)?.username.substring(0, 8)}</td>
+                <td>{timeParser(createdAt)}</td>
+                <td>
+                  <button onClick={() => handleDeletePost(id)}>刪除</button>
+                </td>
               </tr>
             ))
           }
