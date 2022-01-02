@@ -18,34 +18,25 @@ const getPostById = async (id) => {
     .then(res => res.json())
 }
 
-const login = async (username, password) => {
-  return fetch(`${BASE_URL}/login`, {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      username,
-      password
-    })
-  })
+const removePostById = async (id) => {
+  return fetch(`${BASE_URL}/posts/${id}`, { method: 'DELETE' })
     .then(res => res.json())
 }
 
-const singUp = async (nickname, username, password) => {
-  return fetch(`${BASE_URL}/login`, {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      nickname,
-      username,
-      password
-    })
-  })
-    .then(res => res.json())
-}
+// const singUp = async (nickname, username, password) => {
+//   return fetch(`${BASE_URL}/login`, {
+//     method: 'POST',
+//     headers: {
+//       'content-type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       nickname,
+//       username,
+//       password
+//     })
+//   })
+//     .then(res => res.json())
+// }
 
 const getMe = async () => {
   const token = getAuthToken()
@@ -62,7 +53,6 @@ export {
   getUsers,
   getPosts,
   getPostById,
-  login,
-  singUp,
+  removePostById,
   getMe
 }

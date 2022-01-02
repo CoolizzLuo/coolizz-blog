@@ -6,6 +6,8 @@ import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import { faTags } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
+import MDEditor from '@uiw/react-md-editor'
+
 import { timeParser } from '../../utils'
 
 import {
@@ -52,7 +54,7 @@ const Post = ({ post, userList }) => {
         </PostInfo>
       </PostHead>
       <PostBody>
-        {body}
+        <MDEditor.Markdown source={body} />
       </PostBody>
     </PostContainer>
   )
