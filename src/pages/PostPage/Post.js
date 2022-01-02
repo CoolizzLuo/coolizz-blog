@@ -6,6 +6,7 @@ import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import { faTags } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
+import { timeParser } from '../../utils'
 
 import {
   PostContainer as Container,
@@ -29,7 +30,6 @@ const PostContainer = styled(Container)`
 
 const Post = ({ post, userList }) => {
   const { id, title, body, userId, createdAt } = post
-  const timeParser = (time) => new Date(time).toLocaleString('zh-TW', { hour12: false })
   const userParser = (userId) => userList.find((user) => user.id === userId)
 
   return (
