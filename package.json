@@ -25,6 +25,7 @@
     "yup": "^0.32.11"
   },
   "homepage": "https://coolizz.github.io/coolizz-blog",
+  "main": "index.js",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",

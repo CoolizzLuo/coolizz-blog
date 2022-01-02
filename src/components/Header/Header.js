@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import styled from '@emotion/styled/macro'
 import { toast } from 'react-toastify'
 
@@ -74,8 +74,9 @@ const UserBtn = styled.button`
   }
 `
 
-const Header = ({ history }) => {
+const Header = () => {
   const [isModalOpen, toggleModal] = useToggle()
+  const history = useHistory()
   const { user, setUser } = useContext(AuthContext)
   const handleLogout = () => {
     clearAuthToken()
