@@ -74,13 +74,14 @@ const UserBtn = styled.button`
   }
 `
 
-const Header = () => {
+const Header = ({ history }) => {
   const [isModalOpen, toggleModal] = useToggle()
   const { user, setUser } = useContext(AuthContext)
   const handleLogout = () => {
     clearAuthToken()
     setUser(null)
     toast.warn('Logout success !', { autoClose: 3000 })
+    history.push('/')
   }
 
   return (
