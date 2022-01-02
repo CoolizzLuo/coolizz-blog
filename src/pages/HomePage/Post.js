@@ -5,6 +5,7 @@ import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import { faTags } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
+import MDEditor from '@uiw/react-md-editor'
 
 import {
   PostContainer as Container,
@@ -39,7 +40,6 @@ const PostBodyEllipsis = styled(PostBody)`
 
 const Post = ({ post, userList }) => {
   const { id, title, body, userId, createdAt } = post
-  const postBody = body.split('\n').slice(0, 2).join(' ')
 
   const timeParser = (time) => new Date(time).toLocaleString('zh-TW', { hour12: false })
   const userParser = (userId) => userList.find((user) => user.id === userId)
@@ -64,8 +64,7 @@ const Post = ({ post, userList }) => {
         </PostInfo>
       </PostHead>
       <PostBodyEllipsis>
-        {/* {postBody.length > 30 ? `${postBody.substr(0, 30)}...` : postBody} */}
-        {postBody}
+        <MDEditor.Markdown source={body} />
       </PostBodyEllipsis>
       <ReadMoreBtn to={`/post/${id}`}>Read More</ReadMoreBtn>
     </PostContainer>

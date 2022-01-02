@@ -24,7 +24,7 @@ const Container = styled.div`
   position: relative;
   font-size: .8rem;
   max-height: calc(100vh - 100px);
-  width: 768px;
+  width: 960px;
   padding: 0rem 1.25rem;
   margin: 4rem 0 0;
   border-radius: 10px;
