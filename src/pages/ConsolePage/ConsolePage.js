@@ -6,20 +6,46 @@ import { toast } from 'react-toastify'
 
 import useFetch from '../../hooks/useFetch'
 import { AuthContext } from '../../context'
+import { timeParser } from '../../utils'
 
-const Container = styled.div`
-  margin: 2rem auto 0;
-  padding: 2rem;
-  font-size: calc(20px + 0.33vw);
-  text-align: left;
+
+const Table = styled.table`
+  width: 100%;
+  text-align: center;
+
+  tr {
+    display: flex;
+  }
+
+  tr + tr {
+    border-top: 2px solid #666;
+  }
+  
+  th, td {
+    ${({ col }) => col && `
+      width: calc(100%/${col});
+    `}
+    
+  }
+
+  th {
+    background: #428bca;
+    color: #FFF;
+    padding: 8px 0;
+  }
+
+  td {
+    padding: 4px 0;
+  }
+
+  th:first-type {
+    
+  }
+
+  .left {
+    text-align: left;
+  }
 `
-
-const Table = styled.table``
-
-const Thead = styled.thead``
-const Tbody = styled.tbody``
-const Tr = styled.tr``
-const Td = styled.td``
 
 const Div = styled.div`
   text-align: left;
@@ -55,7 +81,30 @@ const ConsolePage = ({ defaultPage = 1 }) => {
   return (
     !loading &&
     <>
-      {data.map(post => <Post key={post.id} post={post} userList={userList} />)}
+      <Table col={4}>
+        <thead>
+          <tr>
+            <th>文章序號</th>
+            <th>文章標題</th>
+            <th>發布日期</th>
+            <th>管理</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            data.map((post) => (
+              <tr key={post.id}>
+                <td>{post.id}</td>
+                <td className="left">{post.title}</td>
+                <td>{timeParser(post.createdAt)}</td>
+                <td><button>刪除</button></td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </Table>
+
+      {/* {data.map(post => <Post key={post.id} post={post} userList={userList} />)} */}
     </>
   )
 }
