@@ -2,7 +2,7 @@ import { getAuthToken } from './utils'
 
 
 const token = getAuthToken() || ''
-const BASE_URL = 'https://student-json-api.lidemy.me'
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const DEFAULT_OPTION = {
   headers: {
     'content-type': 'application/json',
