@@ -6,9 +6,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { toast } from 'react-toastify'
 
-import axios from '../../../commons/axios'
 import { AuthContext } from '../../../context'
 import { setAuthToken } from '../../../utils'
+import { singUp } from '../../../WebAPI'
 import {
   H2,
   Form,
@@ -38,31 +38,28 @@ const LoginForm = ({ toggleModal, switchForm }) => {
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = async (data) => {
-    const { nickname, username, password } = data
-
+  const onSubmit = async ({ nickname, username, password }) => {
     toast.promise(
-      axios.post('/register', { nickname, username, password }),
+      singUp(nickname, username, password),
       {
         pending: 'Loading...',
         success: {
           render({ data }) {
-            if (data.data?.ok !== 1) return data.data.message
-            const { token } = data.data
-            const { username } = decode(token)
+            if (data?.ok !== 1) return data?.message
+            const { token } = data
             setAuthToken(token)
-            setUser(username)
+            setUser(decode(token))
             toggleModal()
-            return `Hi, ${username} welcome` || 'Login success 👌'
+            return `Hi, ${username} welcome` || 'Register success 👌'
           }
         },
         error: {
           render({ data }) {
             reset()
-            return data.response.data?.message || 'Login rejected 🤯'
+            return data?.message || 'Register rejected 🤯'
           }
         }
-      }
+      }, { autoClose: 3000 }
     )
   }
 

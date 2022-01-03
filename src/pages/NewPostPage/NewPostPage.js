@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import styled from '@emotion/styled'
 
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
 import { toast } from 'react-toastify'
+import MDEditor from '@uiw/react-md-editor'
 
-import axios from '../../commons/axios'
+import { addPost } from '../../WebAPI'
 
 
 const Wrapper = styled.div`
@@ -17,10 +16,8 @@ const Wrapper = styled.div`
   padding: 1rem;
   max-width: 760px;
   background: #fff;
-  /* border: 1px solid #ccc; */
   border-radius: 6px;
   box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
-  /* box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 1px, rgb(0 0 0 / 10%) 0px 1px 5px 1px; */
 `
 
 const H2 = styled.h2`
@@ -44,27 +41,12 @@ const Input = styled.input`
   margin: .8rem 0 1rem;
   font-size: 1rem;
   background: #fff;
-  border: 1px solid #c4c4c4;
-  border-radius: 2px;
+  border: 1px solid #dfdfe0;
+  border-radius: 3px;
   outline: none;
 `
 
-
-const Textarea = styled.textarea`
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 200px;
-  padding: .6rem;
-  margin: .8rem 0 1rem;
-  font-size: 1rem;
-  background: #ddd;
-  border: none;
-  border-radius: 12px;
-  outline: none;
-`
-
-const PostCKEditor = styled(CKEditor)`
-  min-height: 200px;
+const PostEditor = styled.div`
   margin: .8rem 0 1rem;
 `
 
@@ -99,7 +81,7 @@ const schema = yup.object({
 const NewPostPage = () => {
   const [body, setBody] = useState('')
   const history = useHistory()
-  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   })
 
@@ -107,21 +89,20 @@ const NewPostPage = () => {
     const { title } = data
 
     toast.promise(
-      axios.post('/posts', { title, body }),
+      addPost(title, body),
       {
         pending: 'Loading...',
         success: {
           render({ data }) {
-            if (!data.data?.id) return data.data.message
+            if (!data?.id) return data?.message
             history.push('/')
             return 'Post Successful !'
           }
         },
         error: {
           render({ data }) {
-            reset()
             history.push('/')
-            return 'Post Fail !'
+            return data?.message || 'Post Fail !'
           }
         }
       }, { autoClose: 3000 }
@@ -130,7 +111,7 @@ const NewPostPage = () => {
 
   return (
     <Wrapper>
-      <H2>Post an article</H2>
+      <H2>New Post</H2>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Label>
           Title:
@@ -141,28 +122,16 @@ const NewPostPage = () => {
             {...register("title")}
           />
         </Label>
-        {/* <Label>
-          Content:
-          <Textarea
-            placeholder='Please input content...'
-            $danger={errors.body}
-            {...register("body")}
-          >
-          </Textarea>
-        </Label> */}
         <Label>Content:</Label>
-        <PostCKEditor
-          editor={ClassicEditor}
-          data="<p>Hello from CKEditor 5!</p>"
-          onReady={editor => console.log('Editor is ready to use!', editor)}
-          onChange={(event, editor) => {
-            const data = editor.getData();
-            console.log({ event, editor, data });
-            setBody(editor.getData())
-          }}
-          onBlur={(event, editor) => console.log('Blur.', editor)}
-          onFocus={(event, editor) => console.log('Focus.', editor)}
-        />
+        <PostEditor>
+          <MDEditor
+            value={body}
+            onChange={setBody}
+            autoFocus
+            toolbarHeight="50px"
+            preview="edit"
+          />
+        </PostEditor>
         <SubmitBtn>Submit</SubmitBtn>
       </Form>
     </Wrapper>

@@ -68,8 +68,6 @@ const Pagination = ({
   totalPage,
   currentPage = 1,
   setCurrentPage,
-  siblingCount = 0,
-  boundaryCount = 1
 }) => {
   const pageNumArray = Array.from({ length: totalPage }, (_, i) => i + 1)
   const offsetArray = (() => {

@@ -19,7 +19,7 @@ const Layout = styled.div`
   align-items: center;
   margin: 0 auto;
   padding: 0 30px;
-  max-width: 768px;
+  max-width: 960px;
 `
 
 const Container = styled.div`
