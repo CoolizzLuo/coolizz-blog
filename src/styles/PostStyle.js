@@ -11,12 +11,7 @@ const PostContainer = styled.article`
   align-items: flex-start;
   border-radius: 6px;
   box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
-  /* box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 1px, rgb(0 0 0 / 10%) 0px 1px 5px 1px; */
   overflow: auto;
-
-  /* & + & {
-    border-top: 1px solid rgba(0, 12, 34, 0.2);
-  } */
 `
 
 const PostHead = styled.header`
