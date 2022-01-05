@@ -82,7 +82,7 @@ const Header = () => {
     clearAuthToken()
     setUser(null)
     toast.warn('Logout success !', { autoClose: 3000 })
-    history.push('/')
+    history.go(0)
   }
 
   return (
