@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 import styled from '@emotion/styled'
 import { toast } from 'react-toastify'
@@ -7,28 +7,20 @@ import { toast } from 'react-toastify'
 import useFetch from '../../hooks/useFetch'
 import { AuthContext } from '../../context'
 import { timeParser, userParser } from '../../utils'
-import axios from '../../commons/axios'
+import { removePostById } from '../../WebAPI'
 
 
 const Table = styled.table`
   font-size: .8rem;
+  margin: 2rem 0 1rem;
+  border-collapse: collapse;
+  text-indent: initial;
+  border-spacing: 2px;
   width: 100%;
-  text-align: center;
-  border: 1px solid #111;
+  background: #fff;
 
-  tr {
-    /* display: flex; */
-  }
-
-  tr + tr {
-    border-top: 2px solid #666;
-  }
-  
   th, td {
-    border: 1px solid #111;
-    /* ${({ col }) => col && `
-      width: calc(100%/${col});
-    `} */
+    border: 2px solid #dfdfe0;
   }
 
   th {
@@ -38,23 +30,23 @@ const Table = styled.table`
   }
 
   td {
-    padding: 4px 0;
+    padding: 4px 20px;
   }
 `
 
-const Div = styled.div`
-  text-align: left;
+const TitleLink = styled(Link)`
+  color: #428bca;
+  font-weight: 700;
 `
 
-
-const Post = ({ post }) => {
-  return (
-    <Div>
-      <span>{post.title}</span>
-      <button>刪除</button>
-    </Div>
-  )
-}
+const Button = styled.button`
+  color: #fff;
+  padding: 4px 6px;
+  background-color: #888;
+  border: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+`
 
 const ConsolePage = () => {
   const { userList } = useContext(AuthContext)
@@ -62,9 +54,9 @@ const ConsolePage = () => {
   const toastId = useRef(null)
   const { loading, error, data = [] } = useFetch(`https://student-json-api.lidemy.me/posts?_sort=createdAt&_order=desc`)
   const handleDeletePost = async (id) => {
-
+    if (!window.confirm('Are you sure delete this post ?')) return
     toast.promise(
-      axios.delete(`/posts/${id}`),
+      removePostById(id),
       {
         pending: 'Loading...',
         success: {
@@ -99,30 +91,32 @@ const ConsolePage = () => {
         <thead>
           <tr>
             <th>No.</th>
-            <th>文章標題</th>
-            <th>作者</th>
-            <th>發布日期</th>
-            <th>管理</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {
-            data.map(({ id, title, userId, createdAt }) => (
+            data.map(({ id, title, userId, createdAt }, index) => (
               <tr key={id}>
-                <td>{id}</td>
-                <td>{title.length < 8 ? title : `${title.substring(0, 8)}...`}</td>
+                <td>{index + 1}</td>
+                <td>
+                  <TitleLink to={`/post/${id}`} title={title} >
+                    {title.length < 8 ? title : `${title.substring(0, 8)}...`}
+                  </TitleLink>
+                </td>
                 <td>{userParser(userList, userId)?.username.substring(0, 8)}</td>
                 <td>{timeParser(createdAt)}</td>
                 <td>
-                  <button onClick={() => handleDeletePost(id)}>刪除</button>
+                  <Button onClick={() => handleDeletePost(id)}>刪除</Button>
                 </td>
               </tr>
             ))
           }
         </tbody>
       </Table>
-
-      {/* {data.map(post => <Post key={post.id} post={post} userList={userList} />)} */}
     </>
   )
 }

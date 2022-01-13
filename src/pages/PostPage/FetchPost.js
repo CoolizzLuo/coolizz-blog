@@ -11,7 +11,7 @@ import Post from './Post'
 const FetchPost = ({ postId }) => {
   const history = useHistory()
   const { userList } = useContext(AuthContext)
-  const { loading, error, data } = useFetch(`https://student-json-api.lidemy.me/posts/${postId}`)
+  const { loading, error, data } = useFetch(`${process.env.REACT_APP_BASE_URL}/posts/${postId}`)
   const toastId = useRef(null)
 
   useEffect(() => {

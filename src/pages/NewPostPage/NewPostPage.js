@@ -8,7 +8,7 @@ import * as yup from "yup"
 import { toast } from 'react-toastify'
 import MDEditor from '@uiw/react-md-editor'
 
-import axios from '../../commons/axios'
+import { addPost } from '../../WebAPI'
 
 
 const Wrapper = styled.div`
@@ -41,8 +41,8 @@ const Input = styled.input`
   margin: .8rem 0 1rem;
   font-size: 1rem;
   background: #fff;
-  border: 1px solid #c4c4c4;
-  border-radius: 2px;
+  border: 1px solid #dfdfe0;
+  border-radius: 3px;
   outline: none;
 `
 
@@ -79,9 +79,9 @@ const schema = yup.object({
 
 
 const NewPostPage = () => {
-  const [body, setBody] = useState('Input something...')
+  const [body, setBody] = useState('')
   const history = useHistory()
-  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   })
 
@@ -89,21 +89,20 @@ const NewPostPage = () => {
     const { title } = data
 
     toast.promise(
-      axios.post('/posts', { title, body }),
+      addPost(title, body),
       {
         pending: 'Loading...',
         success: {
           render({ data }) {
-            if (!data.data?.id) return data.data.message
+            if (!data?.id) return data?.message
             history.push('/')
             return 'Post Successful !'
           }
         },
         error: {
           render({ data }) {
-            reset()
             history.push('/')
-            return 'Post Fail !'
+            return data?.message || 'Post Fail !'
           }
         }
       }, { autoClose: 3000 }
@@ -112,7 +111,7 @@ const NewPostPage = () => {
 
   return (
     <Wrapper>
-      <H2>Post an article</H2>
+      <H2>New Post</H2>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Label>
           Title:
@@ -129,9 +128,9 @@ const NewPostPage = () => {
             value={body}
             onChange={setBody}
             autoFocus
+            toolbarHeight="50px"
             preview="edit"
           />
-          <MDEditor.Markdown source={body} />
         </PostEditor>
         <SubmitBtn>Submit</SubmitBtn>
       </Form>

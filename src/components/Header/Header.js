@@ -82,7 +82,7 @@ const Header = () => {
     clearAuthToken()
     setUser(null)
     toast.warn('Logout success !', { autoClose: 3000 })
-    history.push('/')
+    history.go(0)
   }
 
   return (
@@ -91,7 +91,7 @@ const Header = () => {
       <NavbarList>
         <Nav exact to="/">Home</Nav>
         {user && <Nav to="/new_post">Post</Nav>}
-        {user && <Nav to="/console">Admin</Nav>}
+        {user && <Nav to="/console">Console</Nav>}
         <Nav to="/about">About</Nav>
       </NavbarList>
       <div>

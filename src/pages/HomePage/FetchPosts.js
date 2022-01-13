@@ -14,8 +14,8 @@ const FetchPosts = ({ defaultPage = 1 }) => {
   const { userList, setPostData } = useContext(AuthContext)
   const history = useHistory()
   const toastId = useRef(null)
-  const { loading, error, data = [] } = useFetch(`https://student-json-api.lidemy.me/posts?_sort=createdAt&_order=desc`)
-  const { currPage, setCurrPage, totalPage, pageData } = usePagination(data, defaultPage)
+  const { loading, error, data = [] } = useFetch(`${process.env.REACT_APP_BASE_URL}/posts?_sort=createdAt&_order=desc`)
+  const { currPage, setCurrPage, totalPage, pageData } = usePagination(data, defaultPage, process.env.REACT_APP_PER_PAGE_ITEM)
 
   useEffect(() => {
     loading ? (toastId.current = toast.loading('loading...')) : toast.dismiss(toastId.current)

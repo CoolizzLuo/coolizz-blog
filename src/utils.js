@@ -1,4 +1,4 @@
-const TOKEN_NAME = 'token'
+const TOKEN_NAME = process.env.REACT_APP_TOKEN_NAME
 
 
 const setAuthToken = (token) => localStorage.setItem(TOKEN_NAME, token)
