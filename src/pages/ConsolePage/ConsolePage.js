@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 import useFetch from '../../hooks/useFetch'
 import { AuthContext } from '../../context'
-import { timeParser, userParser } from '../../utils'
+import { getFormattedTime, getUserFromList } from '../../utils'
 import { removePostById } from '../../WebAPI'
 
 
@@ -76,7 +76,12 @@ const ConsolePage = () => {
 
 
   useEffect(() => {
-    loading ? (toastId.current = toast.loading('loading...')) : toast.dismiss(toastId.current)
+    if (loading) {
+      (toastId.current = toast.loading('loading...'))
+    }
+    else {
+      toast.dismiss(toastId.current)
+    }
     return () => toast.dismiss(toastId.current)
   }, [loading])
 
@@ -107,8 +112,8 @@ const ConsolePage = () => {
                     {title.length < 8 ? title : `${title.substring(0, 8)}...`}
                   </TitleLink>
                 </td>
-                <td>{userParser(userList, userId)?.username.substring(0, 8)}</td>
-                <td>{timeParser(createdAt)}</td>
+                <td>{getUserFromList(userList, userId)?.username.substring(0, 8)}</td>
+                <td>{getFormattedTime(createdAt)}</td>
                 <td>
                   <Button onClick={() => handleDeletePost(id)}>刪除</Button>
                 </td>

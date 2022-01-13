@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import styled from '@emotion/styled/macro'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -69,12 +70,12 @@ const Pagination = ({
   currentPage = 1,
   setCurrentPage,
 }) => {
-  const pageNumArray = Array.from({ length: totalPage }, (_, i) => i + 1)
-  const offsetArray = (() => {
+  const pageNumArray = useMemo(() => Array.from({ length: totalPage }, (_, i) => i + 1), [totalPage])
+  const offsetArray = useMemo(() => {
     if (currentPage < 6) return pageNumArray.slice(0, 6)
     else if (currentPage > totalPage - 5) return pageNumArray.slice(totalPage - 6)
     else return pageNumArray.slice(currentPage - 2, currentPage + 1)
-  })()
+  }, [pageNumArray, currentPage, totalPage])
 
   const PageLiItem = ({ value }) => (
     <PageLi

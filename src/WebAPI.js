@@ -1,18 +1,20 @@
 import { getAuthToken } from './utils'
 
 
-const token = getAuthToken() || ''
 const BASE_URL = process.env.REACT_APP_BASE_URL
-const DEFAULT_OPTION = {
-  headers: {
-    'content-type': 'application/json',
-    Authorization: `Bearer ${token}`
-  },
+
+const SET_DEFAULT_OPTION = () => {
+  return {
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${getAuthToken() || ''}`
+    },
+  }
 }
 
 const login = async (username, password) => {
   return fetch(`${BASE_URL}/login`, {
-    ...DEFAULT_OPTION,
+    ...SET_DEFAULT_OPTION(),
     method: 'POST',
     body: JSON.stringify({
       username,
@@ -24,7 +26,7 @@ const login = async (username, password) => {
 
 const singUp = async (nickname, username, password) => {
   return fetch(`${BASE_URL}/register`, {
-    ...DEFAULT_OPTION,
+    ...SET_DEFAULT_OPTION(),
     method: 'POST',
     body: JSON.stringify({
       nickname,
@@ -41,7 +43,7 @@ const getUsers = async () => {
 }
 
 const getMe = async () => {
-  return fetch(`${BASE_URL}/me`, { ...DEFAULT_OPTION })
+  return fetch(`${BASE_URL}/me`, { ...SET_DEFAULT_OPTION() })
     .then(res => res.json())
 }
 
@@ -57,7 +59,7 @@ const getPostById = async (id) => {
 
 const addPost = async (title, body) => {
   return fetch(`${BASE_URL}/posts`, {
-    ...DEFAULT_OPTION,
+    ...SET_DEFAULT_OPTION(),
     method: 'POST',
     body: JSON.stringify({
       title,

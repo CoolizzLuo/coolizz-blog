@@ -7,7 +7,7 @@ import { faTags } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import MDEditor from '@uiw/react-md-editor'
 
-import { timeParser, userParser } from '../../utils'
+import { getFormattedTime, getUserFromList } from '../../utils'
 import {
   PostContainer as Container,
   PostHead,
@@ -49,11 +49,11 @@ const Post = ({ post, userList }) => {
         <PostInfo>
           <PostDate>
             <FontAwesomeIcon icon={faCalendarAlt} />
-            {timeParser(createdAt)}
+            {getFormattedTime(createdAt)}
           </PostDate>
           <PostAuthor>
             <FontAwesomeIcon icon={faUserAlt} />
-            {userParser(userList, userId)?.username}
+            {getUserFromList(userList, userId)?.username}
           </PostAuthor>
           <PostTag>
             <FontAwesomeIcon icon={faTags} />
