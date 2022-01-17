@@ -27,6 +27,18 @@ const PostContainer = styled(Container)`
   margin: 2rem 0;
 `
 
+const PostTitleEllipsis = styled(PostTitle)`
+  width: 100%;  
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 1;
+  -webkit-line-clamp: 1;
+  box-orient: vertical;
+  -webkit-box-orient: vertical;
+`
+
 const PostBodyEllipsis = styled(PostBody)`
   width: 100%;  
   word-wrap: break-word;
@@ -45,7 +57,7 @@ const Post = ({ post, userList }) => {
   return (
     <PostContainer>
       <PostHead>
-        <PostTitle to={{ pathname: `/post/${id}`, state: { post } }}>{title}</PostTitle>
+        <PostTitleEllipsis to={{ pathname: `/post/${id}`, state: { post } }}>{title}</PostTitleEllipsis>
         <PostInfo>
           <PostDate>
             <FontAwesomeIcon icon={faCalendarAlt} />
