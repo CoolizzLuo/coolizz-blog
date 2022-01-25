@@ -12,6 +12,9 @@ import { AuthContext } from './context'
 import { getUsers, getMe } from './WebAPI'
 import { getAuthToken } from './utils'
 
+import { useSelector, useDispatch } from 'react-redux';
+import { incrementAsync } from './store/features/users/userSlice'
+
 
 const Layout = styled.div`
   display: flex;
@@ -40,6 +43,8 @@ const App = () => {
   const [postData, setPostData] = useState([])
   const token = getAuthToken()
 
+  const dispatch = useDispatch()
+
   useLayoutEffect(() => {
     getMe().then((res) => {
       if (res.ok !== 1) return
@@ -52,6 +57,10 @@ const App = () => {
       // if (res.ok !== 1) return
       setUserList(res)
     })
+    dispatch(incrementAsync({
+      username: 'Enzo',
+      password: 'Lidemy'
+    }))
   }, [])
 
 
